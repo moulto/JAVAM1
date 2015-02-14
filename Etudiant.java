@@ -1,6 +1,6 @@
 /**
  * Classe qui représente un étudiant
- * @author florian
+ * @author l'Ordre
  *
  */
 public class Etudiant {
@@ -16,11 +16,18 @@ public class Etudiant {
 	private String prenom;
 	
 	/**
+	 * Pseudo de l'étudiant
+	 */
+	
+	private String pseudo;
+	
+	/**
 	 * Constructeur de la classe Etudiant
 	 * @param nom Nom de l'étudiant
 	 * @param prenom Prénom de l'étudiant
+	 * @param pseudo Pseudo de l'étudiant
 	 */
-	public Etudiant(String nom, String prenom){
+	public Etudiant(String nom, String prenom,String pseudo){
 		this.nom = nom;
 		this.prenom = prenom;
 	}
@@ -39,6 +46,22 @@ public class Etudiant {
 	 */
 	public String getPrenom(){
 		return this.prenom;
+	}
+
+	public String getPseudo() {
+		return pseudo;
+	}
+
+	public void setNom(String Nom) {
+		this.nom = Nom;
+	}
+	
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public void setPseudo(String pseudo) {
+		this.pseudo = pseudo;
 	}
 
 }
