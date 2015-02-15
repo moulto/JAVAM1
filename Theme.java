@@ -35,13 +35,6 @@ public class Theme
 		return this.libelle;
 	}
 	
-	/**
-	 * Modifie le libelle d'un theme
-	 * @param libelle Nouveau libelle du theme
-	 */
-	public void setLibelle(String libelle) {
-		this.libelle = libelle;
-	}
 	
 	/**
 	 * Accesseur sur la liste des référents pour un theme

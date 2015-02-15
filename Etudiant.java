@@ -18,7 +18,6 @@ public class Etudiant {
 	/**
 	 * Pseudo de l'étudiant
 	 */
-	
 	private String pseudo;
 	
 	/**
@@ -51,18 +50,6 @@ public class Etudiant {
 
 	public String getPseudo() {
 		return this.pseudo;
-	}
-
-	public void setNom(String Nom) {
-		this.nom = Nom;
-	}
-	
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-
-	public void setPseudo(String pseudo) {
-		this.pseudo = pseudo;
 	}
 
 }
