@@ -30,6 +30,7 @@ public class Etudiant {
 	public Etudiant(String nom, String prenom,String pseudo){
 		this.nom = nom;
 		this.prenom = prenom;
+		this.pseudo = pseudo;
 	}
 	
 	/**
@@ -49,7 +50,7 @@ public class Etudiant {
 	}
 
 	public String getPseudo() {
-		return pseudo;
+		return this.pseudo;
 	}
 
 	public void setNom(String Nom) {
