@@ -4,38 +4,69 @@ import java.util.ArrayList;
  * @author l'Ordre
  *
  */
-
 public class Theme
 {
+	/**
+	 * Libelle du theme
+	 */
 	private String libelle;
-	private ArrayList<Etudiant> Referents;
 	
 	/**
-	 * Constructeur de la classe Etudiant
-	 * @param nom Nom de l'étudiant
-	 * @param prenom Prénom de l'étudiant
-	 * @param pseudo Pseudo de l'étudiant
+	 * Liste des etudiants qui sont referents sur le theme
 	 */
-	public Theme(String libelle , ArrayList<Etudiant> Referents)
+	private ArrayList<Etudiant> referents;
+	
+	/**
+	 * Constructeur de la classe Theme
+	 * @param libelle Libelle du theme que l'on veut creer
+	 */
+	public Theme(String libelle)
 	{
 		this.libelle=libelle;
-		this.Referents=Referents;
+		/* On initialise le theme avec une liste de référents vide */
+		this.referents = new ArrayList<Etudiant>();
 	}
+	
+	/**
+	 * Accesseur sur le libelle du theme
+	 * @return libelle du theme
+	 */
 	public String getLibelle() {
-		return libelle;
+		return this.libelle;
 	}
+	
+	/**
+	 * Modifie le libelle d'un theme
+	 * @param libelle Nouveau libelle du theme
+	 */
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
 	
-	public void addReferent(Etudiant etu)
-	{
-		Referents.add(etu);
+	/**
+	 * Accesseur sur la liste des référents pour un theme
+	 * @return Liste des referents d'un theme
+	 */
+	public ArrayList<Etudiant> getListeReferents(){
+		return this.referents;
 	}
 	
+	/**
+	 * Ajoute un referent pour le theme
+	 * @prama etu Etudiant nouveau referent sur le theme
+	 */
+	public void addReferent(Etudiant etu)
+	{
+		this.referents.add(etu);
+	}
+	
+	/**
+	 * Supprime un referent pour le theme
+	 * @param etu Ancien etudiant referent sur le theme
+	 */
 	public void delReferent(Etudiant etu)
 	{
-		Referents.remove(etu);
+		this.referents.remove(etu);
 	}
 	
 }

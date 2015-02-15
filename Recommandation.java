@@ -4,33 +4,57 @@
  *
  */
 public class Recommandation {
-	private Etudiant recommandé;
-	private Theme themereco;
+	
+	/**
+	 * Etudiant recommende sur un theme
+	 */
+	private Etudiant recommande;
+	
+	/**
+	 * Theme sur lequel un etudiant est recommende
+	 */
+	private Theme theme;
+	
+	/**
+	 * Etudiant qui recommende un autre etudiant sur un theme
+	 */
 	private Etudiant recommandant;
 	
-	public Recommandation(Etudiant recommandé,Theme themereco,Etudiant recommandant)
+	/**
+	 * Constructeur de la classe Recommendation
+	 * @param recommende Etudiant qui est recommende pour le theme
+	 * @param theme Theme sur le lequel l'etudiant est recommende
+	 * @param recommandant Etuiant qui recommende un de ses camarades sur un theme
+	 */
+	public Recommandation(Etudiant recommande,Theme theme,Etudiant recommandant)
 	{
-		this.recommandé=recommandé;
-		this.themereco=themereco;
+		this.recommande=recommande;
+		this.theme=theme;
 		this.recommandant=recommandant;
 	}
+	
+	/**
+	 * Accesseur sur l'etudiant recommendant
+	 * @return Etudiant recommendant
+	 */
 	public Etudiant getRecommandant() {
 		return recommandant;
 	}
-	public void setRecommandant(Etudiant recommandant) {
-		this.recommandant = recommandant;
-	}
+	
+	/**
+	 * Accesseur sur le theme de la recommendantion
+	 * @return Theme de la recommendantion
+	 */
 	public Theme getThemereco() {
 		return themereco;
 	}
-	public void setThemereco(Theme themereco) {
-		this.themereco = themereco;
-	}
+	
+	/**
+	 * Accesseur sur l'etudiant qui est recommende
+	 * @return Etudiant recommende sur le theme de la recommendation
+	 */
 	public Etudiant getRecommandé() {
 		return recommandé;
-	}
-	public void setRecommandé(Etudiant recommandé) {
-		this.recommandé = recommandé;
 	}
 }
 
