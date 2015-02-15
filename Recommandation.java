@@ -45,16 +45,16 @@ public class Recommandation {
 	 * Accesseur sur le theme de la recommendantion
 	 * @return Theme de la recommendantion
 	 */
-	public Theme getThemereco() {
-		return themereco;
+	public Theme getTheme() {
+		return theme;
 	}
 	
 	/**
 	 * Accesseur sur l'etudiant qui est recommende
 	 * @return Etudiant recommende sur le theme de la recommendation
 	 */
-	public Etudiant getRecommandé() {
-		return recommandé;
+	public Etudiant getRecommande() {
+		return recommande;
 	}
 }
 
