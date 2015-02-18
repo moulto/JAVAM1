@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Classe qui représente un étudiant
  * @author l'Ordre
@@ -20,6 +23,7 @@ public class Etudiant {
 	 */
 	private String pseudo;
 	
+	private HashMap<Theme,Etudiant> recom;
 	/**
 	 * Constructeur de la classe Etudiant
 	 * @param nom Nom de l'étudiant
@@ -50,6 +54,46 @@ public class Etudiant {
 
 	public String getPseudo() {
 		return this.pseudo;
+	}
+	
+	public void devenirReferent(Theme theme)
+	{
+
+		//Recommandation reco = new Recommandation(Etudiant
+	}
+	public void ajouterRecommandation( ArrayList<Recommandation> listeRecommandation, Etudiant recommandant,Etudiant recommande, Theme theme)
+	{
+
+		Boolean found=false;
+		for (Recommandation recommandation : listeRecommandation)
+		{
+			if (recommandation.getTheme().equals(theme) && recommandation.getRecommandant().getPseudo().equals(this.pseudo) && recommandation.getRecommande().equals(recommande) )
+			{
+				found = true;
+				
+			}
+			else
+			{
+				found=false;
+			}
+		}
+		if (found=false)
+		{
+			Recommandation reco = new Recommandation(recommandant,theme,recommande);
+			listeRecommandation.add(reco);
+			System.out.println("La recommandation a été ajoutée");
+		}
+		
+		//Recommandation reco = new Recommandation(,theme,recommande) ;
+	}
+	public void retirerRecommandation(ArrayList<Recommandation> listeRecommandation, Etudiant recommandant,Etudiant recommande, Theme theme)
+	{
+		Recommandation reco = new Recommandation(recommandant,theme,recommande);
+		if(listeRecommandation.remove(reco) == true)
+			{
+				System.out.println("La recommandation a été retirée");
+			}
+		
 	}
 
 }
