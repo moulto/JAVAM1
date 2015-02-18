@@ -1,0 +1,17 @@
+title Utilisation_Courante_Proposer Sequence
+
+alt recommander
+Client-->Serveur: Request
+Serveur-->Theme: Request
+    note right of Theme : ajout referent
+    Theme->-Theme: addReferent(etudiant:String, etudiant2:String): void
+Theme-->Serveur: Ok
+    Serveur-->Client: OK
+else ! recommander
+Client-->Serveur: Request
+Serveur-->Theme: Request
+    note right of Theme : suppression referent
+    Theme->-Theme: delReferent(etudiant:String, etudiant2:String): void
+    Theme-->Serveur: Ok
+    Serveur-->Client: OK
+end

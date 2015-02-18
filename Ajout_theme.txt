@@ -1,0 +1,18 @@
+title Ajout_Theme Sequence
+
+Client-->+Serveur: Ajout_Theme Request
+
+alt themeExiste
+    Theme->-Serveur : listeReferent:ArrayList<String>
+    Theme->Theme: addReferent(etudiant:String, etudiant2:String) : void
+    note right of Theme : ajout du referent
+    Theme-->Serveur: OK
+else ! themeExiste
+    Serveur->+Theme: creerTheme(String libelle):int
+    note right of Theme: Cree un theme
+    Theme-->-Serveur: OK
+    Theme->Serveur : listeReferent:ArrayList<String>
+    Theme->Theme: addReferent(etudiant:String, etudiant2:String) : void
+    note right of Theme : ajout du referent
+    Theme-->Serveur: OK
+end
