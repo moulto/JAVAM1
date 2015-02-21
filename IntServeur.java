@@ -1,3 +1,6 @@
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +15,17 @@ public interface IntServeur {
 	 * 1 = ko
 	 */
 	
-	public int creerTheme(String libelle);
+	/**
+	 * Permet de creer un theme
+	 * @param libelle Nom du theme que l'on veut creer
+	 * @return Si le theme est creer on retourne sa reference sinon on retourne rien ""
+	 * 
+	 */
+	public String creerTheme(String libelle) throws MalformedURLException, RemoteException, NotBoundException;
 	
-	public int themeExiste(String libelle);
+	/**
+	 * Rtourne la reference d'un theme a partir de son libelle
+	 * @return Reference du theme si celui-ci existe et "" sinon
+	 */
+	public String getTheme(String libelle);
 }
