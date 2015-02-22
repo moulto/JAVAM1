@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 /**
  * Interface pour la classe theme

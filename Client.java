@@ -15,7 +15,6 @@ public class Client {
 		System.out.println("Bienvenue dans l'application de recommandation");
 		System.out.println("Veuillez taper votre pseudo ");
 		String pseudo = sc.nextLine();
-		System.out.println("Salut");
 		
 		
 		try {
@@ -42,7 +41,7 @@ public class Client {
 				if(!url.isEmpty() ) 
 				{
 					ServeurTheme = (IntTheme) Naming.lookup(url);
-					ServeurTheme.addReferent(pseudo,pseudo);
+					System.out.println(ServeurTheme.addReferent(pseudo,pseudo));
 					
 				}
 				else
@@ -59,7 +58,7 @@ public class Client {
 				if(!url.isEmpty() ) 
 				{
 					ServeurTheme = (IntTheme) Naming.lookup(url);
-					ServeurTheme.addReferent(pseudo,pseudo1);
+					System.out.println(ServeurTheme.addReferent(pseudo,pseudo1));
 					
 				}
 				else
@@ -76,7 +75,7 @@ public class Client {
 				if(!url.isEmpty() ) 
 				{
 					ServeurTheme = (IntTheme) Naming.lookup(url);
-					ServeurTheme.delReferent(pseudo,pseudo2);
+					System.out.println(ServeurTheme.delReferent(pseudo,pseudo2));
 					
 				}
 				else
@@ -92,7 +91,7 @@ public class Client {
 				if(!url.isEmpty() ) 
 				{
 					ServeurTheme = (IntTheme) Naming.lookup(url);
-					ServeurTheme.getListeReferents();
+					System.out.println(ServeurTheme.getListeReferents());
 				}
 				else
 				{
@@ -106,7 +105,7 @@ public class Client {
 				if(!url.isEmpty()) 
 				{ 
 					ServeurTheme = (IntTheme) Naming.lookup(url);
-					ServeurTheme.getListeReferents();
+					System.out.println(ServeurTheme.getListeReferents());
 				}
 				else
 				{
@@ -130,10 +129,7 @@ public class Client {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
-		System.out.println("Bienvenue dans l'application de recommandation");
+		sc.close();
 		
 	}
 }
