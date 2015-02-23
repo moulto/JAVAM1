@@ -41,7 +41,6 @@ public class Client {
 					sc.nextLine();
 					String theme = sc.nextLine();
 					url = serveur.getTheme(theme);
-					System.out.println("Valeur de URL : "+url);
 					if(!url.isEmpty() ) 
 					{
 						ServeurTheme = (IntTheme) Naming.lookup(url);
@@ -52,7 +51,6 @@ public class Client {
 					{
 						/* Le theme existe pas on le cree */
 						url = serveur.creerTheme(theme);
-						System.out.println("Valeur de URL : "+url);
 						if(!url.isEmpty() ) 
 						{
 							ServeurTheme = (IntTheme) Naming.lookup(url);
@@ -71,8 +69,6 @@ public class Client {
 					sc.nextLine();
 					String theme1 = sc.nextLine();
 					System.out.println("Veuillez taper le pseudo de l'etudiant que vous souhaitez recommander");
-					/* On vide avant de lire une autre chaine */
-					sc.nextLine();
 					String pseudo1 = sc.nextLine();
 					url = serveur.getTheme(theme1);
 					if(!url.isEmpty() ) 
@@ -92,8 +88,6 @@ public class Client {
 					sc.nextLine();
 					String theme2 = sc.nextLine();
 					System.out.println("Veuillez taper le pseudo de l'etudiant");
-					/* On vide avant de lire une autre chaine */
-					sc.nextLine();
 					String pseudo2 = sc.nextLine();
 					url = serveur.getTheme(theme2);
 					if(!url.isEmpty() ) 
