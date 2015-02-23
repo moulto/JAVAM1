@@ -1,0 +1,16 @@
+title Recommander_etudiant Sequence
+
+Client-->Serveur : Recommande un etudiant
+Serveur->+Client : ""Veuillez taper le theme sur lequel vous souhaitez recommander un etudiant""
+Client-->-Serveur : Rentre le theme 
+Serveur->+Client : ""Veuillez taper le pseudo de l'etudiant que vous souhaitez recommander""
+Client-->-Serveur : Rentre le pseudo
+Serveur->Serveur: getTheme(String libelle): String
+note right of Serveur : voir getTheme
+
+alt URL non vide
+note left of Serveur : Le client recommande un referent
+note right of Serveur : voir addReferent
+else URL vide
+Serveur->Client : ""Impossible de recommander un referent""
+end

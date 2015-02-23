@@ -1,0 +1,17 @@
+title Supprimer_recommmandation Sequence
+
+Client-->Serveur : Supprime une recommandation
+Serveur->+Client : ""Veuillez taper le theme sur lequel vous enlever la recommandation""
+Client-->-Serveur : Rentre le theme
+Serveur->+Client : ""Veuillez taper le pseudo de l'etudiant""
+Client-->-Serveur : Rentre le pseudo
+
+Serveur->Serveur: getTheme(String libelle): String
+note right of Serveur : voir getTheme
+
+alt URL non vide
+note left of Serveur : Le client supprime un referent
+note right of Serveur : voir delReferent
+else URL vide
+Serveur->Client : ""Impossible de supprimer un referent""
+end

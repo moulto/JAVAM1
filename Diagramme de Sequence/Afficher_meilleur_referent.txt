@@ -1,0 +1,16 @@
+title Afficher_meilleur_referent Sequence
+
+Client-->Serveur : Affiche le meilleur referent
+Serveur->+Client : ""Veuillez taper le theme pour afficher le meilleur referent""
+Client-->-Serveur : Rentre le theme
+
+Serveur->Serveur: getTheme(String libelle): String
+note right of Serveur : voir getTheme
+
+alt URL non vide
+note left of Serveur : Le client demande le meilleur referent
+note right of Serveur : voir getMeilleurReferent
+Serveur->Client :  ""Meilleur referent sur le theme <nomTheme>: ""
+else URL vide
+Serveur->Client : ""Impossible de renvoyer le meilleur referent""
+end
