@@ -41,7 +41,8 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		if(this.listeThemes.containsKey(libelle)){
 			return "";
 		}else{
-			String url =  ((IntGestionnaireTheme) Naming.lookup("//localhost/gestionnaire")).creerTheme(libelle);
+			IntGestionnaireTheme gestionnaire = (IntGestionnaireTheme) Naming.lookup("//localhost/gestionnaire");
+			String url = gestionnaire.creerTheme(libelle);
 			this.listeThemes.put(libelle, url);
 			return url;
 		}
@@ -77,6 +78,8 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		Serveur serveur = new Serveur();
 		Naming.rebind("serveur", serveur);
 		System.out.println("Le serveur a ete cree");
+		
+		/* On met des données en mémoire pour faire des tests */
 	}
 	
 }

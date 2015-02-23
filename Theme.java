@@ -58,9 +58,14 @@ public class Theme extends UnicastRemoteObject implements IntTheme
 	 * Retourne la liste des referents sur le theme sous forme d'un tableau
 	 * @return Liste des referents sur le theme
 	 */
-	public String[] getListeReferents() {
-		// TODO Auto-generated method stub
-		return (String[]) this.recommandation.keySet().toArray();
+	public String getListeReferents() {
+		Object tab[] =  this.recommandation.keySet().toArray();
+		String liste = "";
+		int i;
+		for(i=0;i<tab.length;i++){
+			liste += (String) tab[i]+" - ";
+		}
+		return liste;
 	}
 
 	@Override

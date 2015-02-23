@@ -37,7 +37,7 @@ public class GestionnaireTheme extends UnicastRemoteObject implements IntGestion
 			LocateRegistry.getRegistry(1099);
 		}
 		Naming.rebind(libelle, theme);
-		String url =  ""+theme.getRef();
+		String url =  "//localhost/"+libelle;
 		return url;
 	}
 	
@@ -55,7 +55,7 @@ public class GestionnaireTheme extends UnicastRemoteObject implements IntGestion
 			LocateRegistry.getRegistry(1099);
 		}
 		GestionnaireTheme gestionnaire = new GestionnaireTheme();
-		Naming.rebind("gestonnaire", gestionnaire);
+		Naming.rebind("gestionnaire", gestionnaire);
 	}
 
 }

@@ -1,5 +1,6 @@
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
@@ -8,7 +9,7 @@ import java.rmi.RemoteException;
  * @author PrietoF, PrietoC, Watre
  *
  */
-public interface IntServeur {
+public interface IntServeur extends Remote{
 	
 	/* 0 = ok
 	 * 1 = ko
@@ -26,5 +27,5 @@ public interface IntServeur {
 	 * Rtourne la reference d'un theme a partir de son libelle
 	 * @return Reference du theme si celui-ci existe et "" sinon
 	 */
-	public String getTheme(String libelle);
+	public String getTheme(String libelle) throws RemoteException;
 }
