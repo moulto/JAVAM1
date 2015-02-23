@@ -111,7 +111,7 @@ public class Client {
 					if(!url.isEmpty() ) 
 					{
 						ServeurTheme = (IntTheme) Naming.lookup(url);
-						System.out.println(ServeurTheme.getListeReferents());
+						System.out.println("Liste des referents sur le theme "+theme3+" : "+ServeurTheme.getListeReferents());
 					}
 					else
 					{
@@ -127,7 +127,7 @@ public class Client {
 					if(!url.isEmpty()) 
 					{ 
 						ServeurTheme = (IntTheme) Naming.lookup(url);
-						System.out.println(ServeurTheme.getListeReferents());
+						System.out.println("Meilleur referent sur le theme "+theme4+" : "+ServeurTheme.getMeilleurReferent());
 					}
 					else
 					{

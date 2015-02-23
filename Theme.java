@@ -109,6 +109,9 @@ public class Theme extends UnicastRemoteObject implements IntTheme
 		}else{
 			if(this.recommandation.get(recommande).contains(recommandant)){
 				this.recommandation.get(recommande).remove(recommandant);
+				if(this.recommandation.get(recommande).size() == 0){
+					this.recommandation.remove(recommande);
+				}
 				return "Votre vote a bien ete retire";
 			}else{
 				return "Vous ne pouvez pas retirer un vote que vous n'avez pas fait";
@@ -128,9 +131,10 @@ public class Theme extends UnicastRemoteObject implements IntTheme
 		int nbVote = 0;
 		String meilleurReferent = null;
 		while(iterateur.hasNext()){
-			if(this.recommandation.get(iterateur.next()).size() > nbVote){
-				nbVote = this.recommandation.get(iterateur.next()).size();
-				meilleurReferent = (String) iterateur.next();
+			Object enCour = iterateur.next();
+			if(this.recommandation.get(enCour).size() > nbVote){		
+				nbVote = this.recommandation.get(enCour).size();
+				meilleurReferent = (String) enCour;
 			}
 		}
 		return meilleurReferent;
