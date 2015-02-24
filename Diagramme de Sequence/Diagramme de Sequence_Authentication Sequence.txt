@@ -1,5 +1,0 @@
-title Authentication Sequence
-
-User->+Server: Authentication Request
-note right of Server: Authentification
-Server->-User: Authentication Response

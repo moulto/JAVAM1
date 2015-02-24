@@ -1,0 +1,23 @@
+title Devenir_referent Sequence
+
+Client-->Serveur : Devient referent
+Serveur->+Client : ""Veuillez taper le theme sur lequel vous souhaitez etre referent""
+Client-->-Serveur : Rentre le theme 
+Serveur->Serveur: getTheme(String libelle): String
+note right of Serveur : voir getTheme
+
+alt URL non vide
+note left of Serveur : Le client devient referent
+note right of Serveur : voir addReferent
+else URL vide
+note left of Serveur : Le theme est cree
+Serveur->Serveur : creerTheme(String libelle): String
+note right of Serveur : voir creerTheme
+alt URL non vide
+note left of Serveur : Le client devient referent
+note right of Serveur : voir addReferent
+else URL vide
+Serveur->Client : ""Impossible de devenir referent""
+end
+
+end

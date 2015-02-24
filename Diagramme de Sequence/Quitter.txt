@@ -1,0 +1,4 @@
+title Quitter Sequence
+
+Client-->Serveur : Quitte l'application
+Serveur->Client : ""Fin du programme""
