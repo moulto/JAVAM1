@@ -120,7 +120,7 @@ public class Client {
 					}
 					break;
 				case 5 :
-					System.out.println("Veuillez taper le theme pour afficher le meilleur referent");
+					System.out.println("Veuillez taper le theme pour afficher le meilleur referent ");
 					/* On vide avant de lire une autre chaine */
 					sc.nextLine();
 					String theme4 = sc.nextLine();

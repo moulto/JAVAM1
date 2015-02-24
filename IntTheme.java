@@ -21,7 +21,7 @@ public interface IntTheme extends Remote{
 	public String getListeReferents() throws RemoteException;
 	
 	/**
-	 * Ajoute un referent pour le theme, si l'utilisateur a deja vote pour ce referent sur ce theme alors sa demande n'est pas prise en compte
+	 * Ajoute un referent pour le theme, si l'utilisateur a deja vote pour ce referent sur ce theme alors sa demande n'est pas prise en compte 
 	 * @param recommandant Etudiant qui vote pour un camarade
 	 * @param recommande Etudiant qui est recommande par un de ses camarades sur le theme
 	 * @return Resultat de la demande d'ajout

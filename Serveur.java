@@ -64,7 +64,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	
 	
 	/**
-	 * Renvoi la liste de tous les themes connus par le serveur
+	 * Renvoi la liste de tous les themes connus par le serveur 
 	 * @return Liste des themes
 	 * @throws RemoteException
 	 */
