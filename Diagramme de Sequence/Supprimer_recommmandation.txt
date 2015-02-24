@@ -6,12 +6,28 @@ Client-->-Serveur : Rentre le theme
 Serveur->+Client : ""Veuillez taper le pseudo de l'etudiant""
 Client-->-Serveur : Rentre le pseudo
 
-Serveur->Serveur: getTheme(String libelle): String
+Client->+Serveur: getTheme(String libelle): String
 note right of Serveur : voir getTheme
+Serveur-->-Client : Renvoi URL
 
-alt URL non vide
-note left of Serveur : Le client supprime un referent
-note right of Serveur : voir delReferent
-else URL vide
-Serveur->Client : ""Impossible de supprimer un referent""
+alt !URL empty
+	note left of Serveur : Le client supprime un referent
+	Client-> Theme : delReferent(String recommandant, String recommande): String
+	note right of Serveur : voir delReferent
+	
+	alt recommande not exist 
+		Theme->Client : ""Vous ne pouvez pas retirer un vote que vous n'avez pas fait""
+	else recommande exist
+		alt recommande is in the list
+			alt
+				 note right of theme : this.recommandation.get(recommande).size() == 0 ???
+			end
+			Theme->Client : ""Votre vote a bien ete retire""
+		else recommande is not in the list
+			Theme->Client : ""Vous ne pouvez pas retirer un vote que vous n'avez pas fait""
+		end
+	end
+	
+else URL empty
+	Serveur->Client : ""Impossible d'enlever la recommandation : le theme n'existe pas""
 end

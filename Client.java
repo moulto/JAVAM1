@@ -23,9 +23,9 @@ public class Client {
 				IntServeur serveur = (IntServeur) Naming.lookup("//localhost/serveur");
 				IntTheme ServeurTheme = null;
 				String url = "";
-				System.out.println("\nVous etes bien connectés sur le serveur");
-				System.out.println("Tapez le numero de l'action a réaliser");
-				System.out.println("1 - Devenir référent");
+				System.out.println("\nVous etes bien connectes sur le serveur");
+				System.out.println("Tapez le numero de l'action a realiser");
+				System.out.println("1 - Devenir referent");
 				System.out.println("2 - Recommander un etudiant");
 				System.out.println("3 - Supprimer une recommandation");
 				System.out.println("4 - Afficher la liste des referents");
@@ -80,7 +80,7 @@ public class Client {
 					}
 					else
 					{
-						System.out.println("Impossible de recommander un etudiant : le theme n'esxiste pas");
+						System.out.println("Impossible de recommander un etudiant : le theme n'existe pas");
 					}
 					break;
 				case 3 :
@@ -141,9 +141,9 @@ public class Client {
 				case 0:
 					System.out.println("Fin du programme");
 					break;
-					default :
-						System.out.println("Choix incorrect");
-						break;
+				default :
+					System.out.println("Choix incorrect");
+					break;
 				}
 			
 			}while(choix != 0);

@@ -4,13 +4,21 @@ Client-->Serveur : Affiche le meilleur referent
 Serveur->+Client : ""Veuillez taper le theme pour afficher le meilleur referent""
 Client-->-Serveur : Rentre le theme
 
-Serveur->Serveur: getTheme(String libelle): String
+Client->+Serveur: getTheme(String libelle): String
 note right of Serveur : voir getTheme
+Serveur-->-Client : Renvoi URL
 
-alt URL non vide
-note left of Serveur : Le client demande le meilleur referent
-note right of Serveur : voir getMeilleurReferent
-Serveur->Client :  ""Meilleur referent sur le theme <nomTheme>: ""
-else URL vide
-Serveur->Client : ""Impossible de renvoyer le meilleur referent""
+alt !URL empty
+	note left of Serveur : Le client demande le meilleur referent
+	Client-> Theme : getMeilleurReferent():String
+	note right of Serveur : voir getMeilleurReferent
+	loop !endOfList
+		alt
+			note right of Theme : this.recommandation.get(enCour).size() > nbVote ??
+		end
+	end
+	Serveur->Client :  ""Meilleur referent sur le theme <nomTheme>: "<nomMeilleurReferent>"
+
+else URL empty
+	Serveur->Client : ""Impossible de renvoyer le meilleur referent : le theme n'existe pas""
 end

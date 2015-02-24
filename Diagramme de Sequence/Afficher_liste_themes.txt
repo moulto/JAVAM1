@@ -1,0 +1,12 @@
+title Afficher_liste_themes Sequence
+
+Client-->Serveur : Affiche la liste des themes
+
+Client->+Serveur: getListeThemes(String libelle): String
+note right of Serveur : voir getListeThemes
+Serveur-->-Client : Renvoi URL
+
+loop !endOfList
+	note right of Theme : liste += (String) "\n"+tab[i];
+end
+Serveur->Client :  ""Liste des themes en base : <listeTheme>""

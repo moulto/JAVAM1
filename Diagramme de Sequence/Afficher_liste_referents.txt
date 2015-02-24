@@ -4,13 +4,19 @@ Client-->Serveur : Affiche la liste des referents
 Serveur->+Client : ""Veuillez taper le theme pour afficher la liste des referents""
 Client-->-Serveur : Rentre le theme
 
-Serveur->Serveur: getTheme(String libelle): String
+Client->+Serveur: getTheme(String libelle): String
 note right of Serveur : voir getTheme
+Serveur-->-Client : Renvoi URL
 
-alt URL non vide
-note left of Serveur : Le client demande liste des referents
-note right of Serveur : voir getListeReferents
-Serveur->Client :  ""Liste des referents sur le theme <nomTheme> : ""
-else URL vide
-Serveur->Client : ""Impossible de renvoyer la liste des referents""
+alt !URL empty
+	note left of Serveur : Le client demande liste des referents
+	Client-> Theme : getListeReferents():String[]
+	note right of Serveur : voir getListeReferents
+	loop !endOfList
+		note right of Theme : liste += (String) "\n"+tab[i];
+	end
+	Serveur->Client :  ""Liste des referents sur le theme <nomTheme> : <listeTheme>""
+	
+else URL empty
+	Serveur->Client : ""Impossible de renvoyer la liste des referents : le theme n'existe pas""
 end

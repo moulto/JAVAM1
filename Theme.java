@@ -9,7 +9,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * Classe qui représente un thème
+ * Classe qui represente un theme
  * @author l'Ordre
  *
  */

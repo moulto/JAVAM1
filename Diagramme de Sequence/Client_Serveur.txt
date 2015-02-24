@@ -3,7 +3,7 @@ title Client_Serveur Sequence
 Client-->Serveur : Demarre l'application
 Serveur->+Client : ""Bienvenue dans l'application de recommandation""
 Serveur->Client : ""Veuillez taper votre pseudo ""
-Client-->-Serveur : Entre le pseudo
+Client-->-Serveur : Rentre le pseudo
 
 loop choix != 0
 Serveur->+Client : ""Vous etes bien connectes sur le serveur""
@@ -13,8 +13,9 @@ Serveur->Client : ""2 - Recommander un etudiant""
 Serveur->Client : ""3 - Supprimer une recommandation""
 Serveur->Client : ""4 - Afficher la liste des referents""
 Serveur->Client : ""5 - Afficher le meilleur referent ""
+Serveur->Client : ""6 - Afficher la liste des themes""
 Serveur->Client : ""0 - Quitter""
-Client-->-Serveur : Tape le choix
+Client-->-Serveur : Rentre le choix
 
 alt choix = 1
 Note left of Serveur : Devenir referent
@@ -26,10 +27,13 @@ else choix = 4
 Note left of Serveur : Afficher la liste des referents
 else choix = 5
 Note left of Serveur : Afficher le meilleur referent
+else choix = 6
+Note left of Serveur : Afficher la liste des themes
 else choix = 0
 Note left of Serveur : Quitter
 end
 
-Serveur-->Client : Ferme l'application
-
 end
+
+Serveur-->Client : Ferme l'application
+Client-->Serveur : Ferme l'application

@@ -51,7 +51,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 
 	@Override
 	/**
-	 * Rtourne la reference d'un theme a partir de son libelle
+	 * Retourne la reference d'un theme a partir de son libelle
 	 * @return Reference du theme si celui-ci existe et "" sinon
 	 */
 	public String getTheme(String libelle) {
@@ -95,7 +95,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		Naming.rebind("serveur", serveur);
 		System.out.println("Le serveur a ete cree");
 		
-		/* On met des données en mémoire pour faire des tests */
+		/* On met des donnees en memoire pour faire des tests */
 	}
 	
 }

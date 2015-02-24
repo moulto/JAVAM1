@@ -3,21 +3,51 @@ title Devenir_referent Sequence
 Client-->Serveur : Devient referent
 Serveur->+Client : ""Veuillez taper le theme sur lequel vous souhaitez etre referent""
 Client-->-Serveur : Rentre le theme 
-Serveur->Serveur: getTheme(String libelle): String
+Client->+Serveur: getTheme(String libelle): String
 note right of Serveur : voir getTheme
+Serveur-->-Client : Renvoi URL
 
-alt URL non vide
-note left of Serveur : Le client devient referent
-note right of Serveur : voir addReferent
-else URL vide
-note left of Serveur : Le theme est cree
-Serveur->Serveur : creerTheme(String libelle): String
-note right of Serveur : voir creerTheme
-alt URL non vide
-note left of Serveur : Le client devient referent
-note right of Serveur : voir addReferent
-else URL vide
-Serveur->Client : ""Impossible de devenir referent""
-end
+alt !URL empty
+	note left of Serveur : Le client devient referent
+	Client-> Theme : addReferent(String recommandant, String recommande): String
+	note right of Serveur : voir addReferent
 
+	alt recommande not exist 
+		Theme->Client : ""Votre recommandation a ete ajoutee""
+	else recommande exist
+		alt recommande is in the list
+			Theme->Client : ""Vous avez deja vote pour ce referent""
+		else recommande is not in the list
+			Theme->Client : ""Votre recommandation a ete ajoutee""
+		end
+	end
+
+else URL empty
+	note left of Serveur : Le theme est cree
+	Client->Serveur: creerTheme(String libelle): String
+	note right of Serveur : voir creerTheme
+
+	alt theme exist
+		GestionnaireTheme-->Serveur : return ""
+	else theme not exist
+		Serveur->GestionnaireTheme: creerTheme(String libelle):
+		GestionnaireTheme-->Serveur : return url
+	end
+
+	alt !URL empty
+		note left of Serveur : Le client devient referent
+		Client-> Theme : addReferent(String recommandant, String recommande): String
+		note right of Serveur : voir addReferent
+		alt recommande not exist 
+			Theme->Client : ""Votre recommandation a ete ajoutee""
+		else recommande exist
+			alt recommande is in the list
+				Theme->Client : ""Vous avez deja vote pour ce referent""
+			else recommande is not in the list
+				Theme->Client : ""Votre recommandation a ete ajoutee""
+			end
+		end
+	else URL empty
+		Serveur->Client : ""Impossible de devenir referent""
+	end
 end
