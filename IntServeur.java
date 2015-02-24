@@ -24,7 +24,7 @@ public interface IntServeur extends Remote{
 	public String creerTheme(String libelle) throws MalformedURLException, RemoteException, NotBoundException;
 	
 	/**
-	 * Rtourne la reference d'un theme a partir de son libelle 
+	 * Rtourne la reference d'un theme a partir de son libelle  
 	 * @return Reference du theme si celui-ci existe et "" sinon
 	 */
 	public String getTheme(String libelle) throws RemoteException;

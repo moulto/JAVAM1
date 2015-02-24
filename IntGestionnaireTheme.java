@@ -15,3 +15,4 @@ public interface IntGestionnaireTheme extends Remote{
 	public String creerTheme(String libelle) throws RemoteException, MalformedURLException;
 
 }
+ 

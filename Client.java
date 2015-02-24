@@ -124,7 +124,7 @@ public class Client {
 					/* On vide avant de lire une autre chaine */
 					sc.nextLine();
 					String theme4 = sc.nextLine();
-					url = serveur.getTheme(theme4);
+					url = serveur.getTheme(theme4); 
 					if(!url.isEmpty()) 
 					{ 
 						ServeurTheme = (IntTheme) Naming.lookup(url);

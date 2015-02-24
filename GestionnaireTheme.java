@@ -39,7 +39,7 @@ public class GestionnaireTheme extends UnicastRemoteObject implements IntGestion
 		Naming.rebind(libelle, theme);
 		String url =  "//localhost/"+libelle;
 		return url;
-	}
+	} 
 	
 	/**
 	 * Fonction principale du gestionnaire de theme

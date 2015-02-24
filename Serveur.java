@@ -58,7 +58,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		if(this.listeThemes.containsKey(libelle)){
 			return this.listeThemes.get(libelle);
 		}else{
-			return "";
+			return ""; 
 		}
 	}
 	
