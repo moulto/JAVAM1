@@ -23,13 +23,14 @@ public class Client {
 				IntServeur serveur = (IntServeur) Naming.lookup("//localhost/serveur");
 				IntTheme ServeurTheme = null;
 				String url = "";
-				System.out.println("Vous etes bien connectés sur le serveur");
+				System.out.println("\nVous etes bien connectés sur le serveur");
 				System.out.println("Tapez le numero de l'action a réaliser");
 				System.out.println("1 - Devenir référent");
 				System.out.println("2 - Recommander un etudiant");
 				System.out.println("3 - Supprimer une recommandation");
 				System.out.println("4 - Afficher la liste des referents");
-				System.out.println("5 - Afficher le meilleur referent ");
+				System.out.println("5 - Afficher le meilleur referent");
+				System.out.println("6 - Afficher la liste des themes");
 				System.out.println("0 - Quitter");
 				choix = sc.nextInt();
 				switch (choix)
@@ -59,7 +60,7 @@ public class Client {
 						}
 						else
 						{
-							System.out.println("Impossible de devenir referent");
+							System.out.println("Impossible de devenir referent : erreur lors de la creation du theme");
 						}
 					}
 					break;
@@ -79,7 +80,7 @@ public class Client {
 					}
 					else
 					{
-						System.out.println("Impossible de recommander un etudiant");
+						System.out.println("Impossible de recommander un etudiant : le theme n'esxiste pas");
 					}
 					break;
 				case 3 :
@@ -98,7 +99,7 @@ public class Client {
 					}
 					else
 					{
-						System.out.println("Impossible d'enlever la recommandation");
+						System.out.println("Impossible d'enlever la recommandation : le theme n'existe pas");
 					}
 	
 					break;
@@ -115,7 +116,7 @@ public class Client {
 					}
 					else
 					{
-						System.out.println("Impossible de renvoyer la liste des referents");
+						System.out.println("Impossible de renvoyer la liste des referents : le theme n'existe pas");
 					}
 					break;
 				case 5 :
@@ -131,8 +132,11 @@ public class Client {
 					}
 					else
 					{
-						System.out.println("Impossible de renvoyer le meilleur referent");
+						System.out.println("Impossible de renvoyer le meilleur referent : le theme n'existe pas");
 					}
+					break;
+				case 6:
+					System.out.println("Liste des themes en base : "+serveur.getListeThemes());
 					break;
 				case 0:
 					System.out.println("Fin du programme");

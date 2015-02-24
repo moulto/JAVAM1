@@ -28,4 +28,11 @@ public interface IntServeur extends Remote{
 	 * @return Reference du theme si celui-ci existe et "" sinon
 	 */
 	public String getTheme(String libelle) throws RemoteException;
+	
+	/**
+	 * Renvoi la liste de tous les themes connus par le serveur
+	 * @return Liste des themes
+	 * @throws RemoteException
+	 */
+	public String getListeThemes() throws RemoteException;
 }

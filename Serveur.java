@@ -62,6 +62,22 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		}
 	}
 	
+	
+	/**
+	 * Renvoi la liste de tous les themes connus par le serveur
+	 * @return Liste des themes
+	 * @throws RemoteException
+	 */
+	public String getListeThemes() throws RemoteException{
+		Object tab[] =  this.listeThemes.keySet().toArray();
+		String liste = "";
+		int i;
+		for(i=0;i<tab.length;i++){
+			liste += (String) "\n"+tab[i];
+		}
+		return liste;
+	}
+	
 	/**
 	 * Fonction principale du serveur
 	 * @param args

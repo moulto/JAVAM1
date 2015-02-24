@@ -63,7 +63,7 @@ public class Theme extends UnicastRemoteObject implements IntTheme
 		String liste = "";
 		int i;
 		for(i=0;i<tab.length;i++){
-			liste += (String) tab[i]+" - ";
+			liste += (String) "\n"+tab[i];
 		}
 		return liste;
 	}
@@ -134,7 +134,7 @@ public class Theme extends UnicastRemoteObject implements IntTheme
 			Object enCour = iterateur.next();
 			if(this.recommandation.get(enCour).size() > nbVote){		
 				nbVote = this.recommandation.get(enCour).size();
-				meilleurReferent = (String) enCour;
+				meilleurReferent = (String) enCour+" ("+nbVote+" votes)";
 			}
 		}
 		return meilleurReferent;
