@@ -14,7 +14,8 @@ alt !URL empty
 	note right of Serveur : voir getMeilleurReferent
 	loop !endOfList
 		alt
-			note right of Theme : this.recommandation.get(enCour).size() > nbVote ??
+			note right of Theme : nbVote_encour > nbVote_meilleurReferent
+			Theme-->Serveur : <nomMeilleurReferent>
 		end
 	end
 	Serveur->Client :  ""Meilleur referent sur le theme <nomTheme>: "<nomMeilleurReferent>"

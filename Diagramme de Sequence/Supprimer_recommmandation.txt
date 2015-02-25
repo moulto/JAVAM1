@@ -20,7 +20,7 @@ alt !URL empty
 	else recommande exist
 		alt recommande is in the list
 			alt
-				 note right of theme : this.recommandation.get(recommande).size() == 0 ???
+				 note right of theme : nbVote = 0
 			end
 			Theme->Client : ""Votre vote a bien ete retire""
 		else recommande is not in the list

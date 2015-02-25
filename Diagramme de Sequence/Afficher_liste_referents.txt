@@ -13,7 +13,8 @@ alt !URL empty
 	Client-> Theme : getListeReferents():String[]
 	note right of Serveur : voir getListeReferents
 	loop !endOfList
-		note right of Theme : liste += (String) "\n"+tab[i];
+		note right of Theme : liste += referent;
+		Theme-->Serveur : <listeTheme>
 	end
 	Serveur->Client :  ""Liste des referents sur le theme <nomTheme> : <listeTheme>""
 	

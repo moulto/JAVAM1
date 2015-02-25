@@ -7,6 +7,7 @@ note right of Serveur : voir getListeThemes
 Serveur-->-Client : Renvoi URL
 
 loop !endOfList
-	note right of Theme : liste += (String) "\n"+tab[i];
+	note right of Theme : liste += libelle;
+		Theme-->Serveur : <listeTheme>
 end
 Serveur->Client :  ""Liste des themes en base : <listeTheme>""
