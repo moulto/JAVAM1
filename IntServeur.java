@@ -2,6 +2,7 @@ import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 
 /**
  * Interface de serveur.
@@ -35,4 +36,10 @@ public interface IntServeur extends Remote{
 	 * @throws RemoteException
 	 */
 	public String getListeThemes() throws RemoteException;
+	
+	
+	public String getListeProfils() throws RemoteException;
+	
+	
+	public String creerProfil(String pseudo, ArrayList<String> competences) throws RemoteException, MalformedURLException, NotBoundException;
 }

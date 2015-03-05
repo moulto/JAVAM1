@@ -4,6 +4,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -21,6 +22,11 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	 * Liste des themes avec leur reference
 	 */
 	private HashMap<String,String> listeThemes;
+	
+	/**
+	 * Liste des profils des utilisateurs
+	 */
+	private HashMap<String,String> listeProfils;
 	
 	/**
 	 * Construceur de la classe
@@ -76,6 +82,37 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 			liste += (String) "\n"+tab[i];
 		}
 		return liste;
+	}
+	
+	/**
+	 * Retourne la liste des profils
+	 * @return Liste des pseudos des étudiants qui ont un profil
+	 */
+	public String getListeProfils() throws RemoteException{
+		Object tab[] =  this.listeProfils.keySet().toArray();
+		String liste = "";
+		int i;
+		for(i=0;i<tab.length;i++){
+			liste += (String) "\n"+tab[i];
+		}
+		return liste;
+	}
+	
+	/**
+	 * Creer le profil d'un étudiant et retourne l'url de ce profil
+	 * @param pseudo Pseudo de l'étudiant
+	 * @param competences Liste des competences de l'étudiant
+	 * @return Url de l'objet distribué profil
+	 */
+	public String creerProfil(String pseudo, ArrayList<String> competences) throws RemoteException, MalformedURLException, NotBoundException{
+		if(this.listeProfils.containsKey(pseudo)){
+			return "";
+		}else{
+			IntGestionnaireProfil gestionnaireProfil = (IntGestionnaireProfil) Naming.lookup("//localhost/gestionnaireProfil");
+			String url = gestionnaireProfil.creerProfil(pseudo,competences);
+			this.listeProfils.put(pseudo, url);
+			return url;
+		}
 	}
 	
 	/**
