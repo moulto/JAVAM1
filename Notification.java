@@ -16,7 +16,13 @@ public class Notification {
 		this.competenceConcernee = competenceConcernee;
 		this.type = type;
 	}
-
+	/**
+	 * @return notification en String
+	 */
+	public String toString()
+	{
+		return (this.utilisateurEmetteur + "demande si vous voulez etre referent sur le theme : " + this.competenceConcernee);
+	}
 
 	/**
 	 * @return the utilisateurEmetteur
