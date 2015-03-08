@@ -2,6 +2,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -20,6 +21,8 @@ public class Client {
 		try {
 			Integer choix;
 			do{
+				IntServeurNotification notif = (IntServeurNotification) Naming.lookup("//localhost/notification");
+				int nbnotifs=notif.getNombreNotification(pseudo);
 				IntServeur serveur = (IntServeur) Naming.lookup("//localhost/serveur");
 				IntTheme ServeurTheme = null;
 				String url = "";
@@ -31,6 +34,8 @@ public class Client {
 				System.out.println("4 - Afficher la liste des referents");
 				System.out.println("5 - Afficher le meilleur referent");
 				System.out.println("6 - Afficher la liste des themes");
+				System.out.println("7 - Renseigner ses compétences");
+				System.out.println("8 - Afficher les notifications ("+nbnotifs+")");
 				System.out.println("0 - Quitter");
 				choix = sc.nextInt();
 				switch (choix)
@@ -116,7 +121,19 @@ public class Client {
 					}
 					else
 					{
-						System.out.println("Impossible de renvoyer la liste des referents : le theme n'existe pas");
+						System.out.println("Aucun réferent pour ce theme, nous allons rechercher les réferents potentiels");
+						IntGestionnaireCompetence comp = (IntGestionnaireCompetence) Naming.lookup("//localhost/comp");
+						System.out.println(comp.ListeRefPotentiel(theme3));
+						System.out.println("Souhaitez vous qu'un des étudiant devienne réferent sur ce theme ? ( Oui ou non");
+						String choix1 = sc.nextLine();
+						if(choix1.toLowerCase()=="oui")
+						{
+							System.out.println("Taper le nom de l'étudiant a reference :");
+							String etu = sc.nextLine();
+							notif.creerNotification(pseudo, etu, theme3, "ref");
+							System.out.println(etu + "a été prevenu de votre demande : nous vous alerterons des qu'il aura repondu");
+						}
+						
 					}
 					break;
 				case 5 :
@@ -137,6 +154,19 @@ public class Client {
 					break;
 				case 6:
 					System.out.println("Liste des themes en base : "+serveur.getListeThemes());
+					break;
+				case 7:
+					ArrayList<String> Compétences = new ArrayList<String>();
+					System.out.println("Veuillez entrer vos compétences ( Taper 0 pour sortir)");
+					String comp = null;
+					while (comp!="0")
+					{
+						comp = sc.nextLine();
+						Compétences.add(comp);
+					}
+					break;
+				case 8:
+					
 					break;
 				case 0:
 					System.out.println("Fin du programme");
