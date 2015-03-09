@@ -1,0 +1,13 @@
+title Afficher_liste_profils Sequence
+
+Client-->Serveur : Affiche la liste des profils
+
+Client->+Serveur: getListeProfils(String libelle): String
+note right of Serveur : voir getListeProfils
+Serveur-->-Client : Renvoi URL
+
+loop !endOfList
+	note right of Profil : liste += pseudo;
+		Profil-->Serveur : <listeProfil>
+end
+Serveur->Client :  ""Liste des profils en base : <listeProfil>""
