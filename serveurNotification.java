@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Serveur de notification qui gère toutes les notifications
+ * Serveur de notification qui gere toutes les notifications
  *
  *
  */
@@ -17,7 +17,7 @@ public class serveurNotification extends UnicastRemoteObject implements intServe
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Liste des notifications avec en clef le pseudo de l'étudiant cible
+	 * Liste des notifications avec en clef le pseudo de l'etudiant cible
 	 */
 	private HashMap<String,ArrayList<Notification>> listeNotification;
 	
@@ -30,7 +30,7 @@ public class serveurNotification extends UnicastRemoteObject implements intServe
 	}
 
 	/**
-	 * Creer une notification et l'ajoute à la liste
+	 * Creer une notification et l'ajoute a la liste
 	 * @param utilSource Utilisateur emtteur
 	 * @param utilCibe Utilisateur destinataire
 	 * @param competence Objet de la notification
@@ -45,9 +45,9 @@ public class serveurNotification extends UnicastRemoteObject implements intServe
 	}
 
 	/**
-	 * Donne le nombre de notifications qui concernent l'utilisateur en paramètre
-	 * @param utilisateur Utilisateur concerné par les notifications
-	 * @return Nombre de nptifictions pour l'tilisateur
+	 * Donne le nombre de notifications qui concernent l'utilisateur en parametre
+	 * @param utilisateur Utilisateur concerne par les notifications
+	 * @return Nombre de notifications pour l'utilisateur
 	 */
 	public int getNombreNotification(String utilisateur) {
 		int nbNotif;
@@ -59,7 +59,7 @@ public class serveurNotification extends UnicastRemoteObject implements intServe
 	 * Supprime une notification
 	 * @param utilisateurCible Destinataire
 	 * @param utilisateurSource Emetteur
-	 * @param competence Competence concernée
+	 * @param competence Competence concernee
 	 * 
 	 */
 	public void delNotification(String utilisateurCible,String utilisateurSource, String competence){
@@ -76,9 +76,9 @@ public class serveurNotification extends UnicastRemoteObject implements intServe
 	}
 	
 	/**
-	 * Envoi la liste des notifications qui le concerne à un utilisateur
+	 * Envoi la liste des notifications qui le concerne a un utilisateur
 	 * @param utilisateur Utilisateur qui demande ses notifications
-	 * @return Liste de ses notifications avec les champs séparés par des #
+	 * @return Liste de ses notifications avec les champs separes par des #
 	 */
 	public ArrayList<String> getNotificationsUtilisateur(String utilisateur){
 		ArrayList<Notification> listeNotifications = this.listeNotification.get(utilisateur);

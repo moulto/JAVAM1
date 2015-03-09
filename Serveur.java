@@ -86,7 +86,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	
 	/**
 	 * Retourne la liste des profils
-	 * @return Liste des pseudos des étudiants qui ont un profil
+	 * @return Liste des pseudos des etudiants qui ont un profil
 	 */
 	public String getListeProfils() throws RemoteException{
 		Object tab[] =  this.listeProfils.keySet().toArray();
@@ -99,10 +99,10 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	}
 	
 	/**
-	 * Creer le profil d'un étudiant et retourne l'url de ce profil
-	 * @param pseudo Pseudo de l'étudiant
-	 * @param competences Liste des competences de l'étudiant
-	 * @return Url de l'objet distribué profil
+	 * Creer le profil d'un etudiant et retourne l'url de ce profil
+	 * @param pseudo Pseudo de l'etudiant
+	 * @param competences Liste des competences de l'etudiant
+	 * @return Url de l'objet distribue profil
 	 */
 	public String creerProfil(String pseudo, ArrayList<String> competences) throws RemoteException, MalformedURLException, NotBoundException{
 		if(this.listeProfils.containsKey(pseudo)){
