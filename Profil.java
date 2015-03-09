@@ -16,12 +16,12 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Pseudo de l'étudiant auquel le profil appartient
+	 * Pseudo de l'etudiant auquel le profil appartient
 	 */
 	private String pseudo;
 	
 	/**
-	 * Competences de l'étudiant
+	 * Competences de l'etudiant
 	 */
 	private ArrayList<String> competences;
 
