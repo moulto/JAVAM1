@@ -7,7 +7,7 @@ public class Notification {
 	
 	private String competenceConcernee;
 	
-	private String type;
+	private String type; /* Demande / Reponse */
 	
 	
 	public Notification(String utilisateurEmetteur, String utilisateurCible, String competenceConcernee, String type){
