@@ -33,6 +33,26 @@ public class GestionnaireCompetence extends UnicastRemoteObject implements IntGe
 			liste += (String) "\n"+tab[i];
 		}
 		return liste;
-		
+	}
+	
+	public void addReferentPotentiel(String pseudo, ArrayList<String> competences)
+	{
+		// a modifier
+		Profil p = null;
+		for(String comp : competences)
+		{
+			// Si la compétence n'existe pas on la crée et on ajoute le profil
+			if (!RefPotentiel.containsKey(comp))
+					{
+						ArrayList<Profil> Referents = null;
+						Referents.add(p);
+						this.RefPotentiel.put(comp, Referents);
+					}
+			// Si la compétence existe on ajoute juste le profil
+			else
+			{
+				RefPotentiel.get(comp).add(p);
+			}
+		}
 	}
 }

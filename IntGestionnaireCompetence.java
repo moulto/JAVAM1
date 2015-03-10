@@ -6,4 +6,5 @@ import java.util.ArrayList;
 public interface IntGestionnaireCompetence extends Remote {
 
 	public String ListeRefPotentiel(String Competence) throws RemoteException, MalformedURLException;
+	public void addReferentPotentiel(String pseudo, ArrayList<String> competences) throws RemoteException, MalformedURLException;
 }
