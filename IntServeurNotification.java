@@ -6,7 +6,7 @@ import java.util.ArrayList;
  *
  *
  */
-public interface intServeurNotification extends Remote{
+public interface IntServeurNotification extends Remote{
 	
 	/**
 	 * Creer une notification et l'ajoute a la liste

@@ -8,7 +8,7 @@ import java.util.HashMap;
  *
  *
  */
-public class serveurNotification extends UnicastRemoteObject implements intServeurNotification{
+public class serveurNotification extends UnicastRemoteObject implements IntServeurNotification{
 
 
 	/**
@@ -84,8 +84,10 @@ public class serveurNotification extends UnicastRemoteObject implements intServe
 		ArrayList<Notification> listeNotifications = this.listeNotification.get(utilisateur);
 		if(listeNotifications.size()>0){
 			ArrayList<String> notifications = new ArrayList<String>();
+			int i = 1;
 			for(Notification notif : listeNotifications){
-				notifications.add(notif.getUtilisateurEmetteur()+"#"+notif.getCompetenceConcernee()+"#"+notif.getType());
+				notifications.add(i + "#" + notif.getUtilisateurEmetteur()+"#"+notif.getCompetenceConcernee()+"#"+notif.getType());
+				i++;
 			}
 			return notifications;
 		}else{
