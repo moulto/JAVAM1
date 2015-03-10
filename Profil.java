@@ -1,3 +1,4 @@
+import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -34,14 +35,14 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 
 
 	@Override
-	public String getPseudo() {
+	public String getPseudo()  throws RemoteException{
 		// TODO Auto-generated method stub
 		return this.pseudo;
 	}
 
 
 	@Override
-	public ArrayList<String> getCompetences() {
+	public ArrayList<String> getCompetences() throws RemoteException{
 		// TODO Auto-generated method stub
 		return this.competences;
 	}

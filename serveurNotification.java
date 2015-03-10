@@ -102,10 +102,8 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 		ArrayList<Notification> listeNotifications = this.listeNotification.get(utilisateur);
 		if(listeNotifications != null){
 			ArrayList<String> notifications = new ArrayList<String>();
-			int i = 1;
 			for(Notification notif : listeNotifications){
 				notifications.add(notif.getUtilisateurEmetteur()+"#"+notif.getCompetenceConcernee()+"#"+notif.getType());
-				i++;
 			}
 			return notifications;
 		}else{

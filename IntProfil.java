@@ -1,10 +1,12 @@
+import java.net.MalformedURLException;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 
 public interface IntProfil extends Remote{
 	
-	public String getPseudo();
+	public String getPseudo() throws RemoteException, MalformedURLException;
 	
-	public ArrayList<String> getCompetences();
+	public ArrayList<String> getCompetences() throws RemoteException, MalformedURLException;
 }

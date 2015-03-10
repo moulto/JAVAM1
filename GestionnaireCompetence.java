@@ -5,11 +5,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.ListIterator;
-import java.util.Map;
-import java.util.Set;
-
 
 
 public class GestionnaireCompetence extends UnicastRemoteObject implements IntGestionnaireCompetence {
