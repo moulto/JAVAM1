@@ -21,6 +21,7 @@ public class Client {
 		try {
 			Integer choix;
 			do{
+				IntGestionnaireCompetence comp = (IntGestionnaireCompetence) Naming.lookup("//localhost/comp");
 				IntServeurNotification notif = (IntServeurNotification) Naming.lookup("//localhost/notification");
 				int nbnotifs=notif.getNombreNotification(pseudo);
 				IntServeur serveur = (IntServeur) Naming.lookup("//localhost/serveur");
@@ -122,13 +123,12 @@ public class Client {
 					else
 					{
 						System.out.println("Aucun réferent pour ce theme, nous allons rechercher les réferents potentiels");
-						IntGestionnaireCompetence comp = (IntGestionnaireCompetence) Naming.lookup("//localhost/comp");
 						System.out.println(comp.ListeRefPotentiel(theme3));
 						System.out.println("Souhaitez vous qu'un des étudiant devienne réferent sur ce theme ? ( Oui ou non");
 						String choix1 = sc.nextLine();
 						if(choix1.toLowerCase()=="oui")
 						{
-							System.out.println("Taper le nom de l'étudiant a reference :");
+							System.out.println("Taper le nom de l'étudiant a referencer :");
 							String etu = sc.nextLine();
 							notif.creerNotification(pseudo, etu, theme3, "ref");
 							System.out.println(etu + "a été prevenu de votre demande : nous vous alerterons des qu'il aura repondu");
@@ -156,17 +156,55 @@ public class Client {
 					System.out.println("Liste des themes en base : "+serveur.getListeThemes());
 					break;
 				case 7:
-					ArrayList<String> Compétences = new ArrayList<String>();
+					ArrayList<String> listeCompetences = new ArrayList<String>();
 					System.out.println("Veuillez entrer vos compétences ( Taper 0 pour sortir)");
-					String comp = null;
-					while (comp!="0")
+					String competence = null;
+					while (competence!="0")
 					{
-						comp = sc.nextLine();
-						Compétences.add(comp);
+						competence = sc.nextLine();
+						listeCompetences.add(competence);
 					}
+					// On enleve le 0 de la liste
+					listeCompetences.remove(listeCompetences.size()-1);
+					// On ajoute les competences de l'utilisateur courant
+					comp.addReferentPotentiel(pseudo, listeCompetences);
+					
 					break;
 				case 8:
-					
+					System.out.println("Liste des notifications");
+					ArrayList<String> listeNotifications = null;
+					System.out.println(listeNotifications);
+					System.out.println("Taper le numero de la notification a supprimer");
+					int numnotif = sc.nextInt();
+					if (numnotif < listeNotifications.size() || numnotif > listeNotifications.size())
+					{
+						System.out.println("Erreur de saisie");
+					}
+					else
+					{
+						String[] notification = listeNotifications.get(numnotif).split("#");
+						if (notification[4]=="validation")
+						{
+							System.out.println("Confirmez vous vouloir devenir referent sur ce theme( oui non)");
+							String validation = sc.nextLine();
+							if(validation.toLowerCase()=="oui")
+							{
+								notif.delNotification(pseudo, notification[2], notification[3]);
+								notif.creerNotification(pseudo, notification[2], notification[3], "validationOK");
+							}
+							else
+							{
+								notif.delNotification(pseudo, notification[2], notification[3]);
+								notif.creerNotification(pseudo, notification[2], notification[3], "validationNOK");
+							}
+					    
+						}
+						else if (notification[4]=="info" )
+						{
+							notif.delNotification(pseudo, notification[2], notification[3]);
+						}
+					}
+
 					break;
 				case 0:
 					System.out.println("Fin du programme");
