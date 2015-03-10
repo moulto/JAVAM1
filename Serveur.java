@@ -130,7 +130,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		}
 		Serveur serveur = new Serveur();
 		Naming.rebind("serveur", serveur);
-		System.out.println("Le serveur a ete cree");
+		//System.out.println("Le serveur a ete cree");
 		
 		/* On met des donnees en memoire pour faire des tests */
 	}

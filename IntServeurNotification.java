@@ -1,4 +1,5 @@
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -14,30 +15,34 @@ public interface IntServeurNotification extends Remote{
 	 * @param utilCibe Utilisateur destinataire
 	 * @param competence Objet de la notification
 	 * @return Resultat
+	 * @throws RemoteException 
 	 */
-	public String creerNotification(String utilSource, String utilCible, String competence, String type);
+	public String creerNotification(String utilSource, String utilCible, String competence, String type) throws RemoteException;
 	
 	/**
 	 * Donne le nombre de notifications qui concernent l'utilisateur en parametre
 	 * @param utilisateur Utilisateur concerne par les notifications
 	 * @return Nombre de notifications pour l'utilisateur
+	 * @throws RemoteException 
 	 */
-	public int getNombreNotification(String utilisateur);
+	public int getNombreNotification(String utilisateur) throws RemoteException;
 	
 	/**
 	 * Supprime une notification
 	 * @param utilisateurCible Destinataire
 	 * @param utilisateurSource Emetteur
 	 * @param competence Competence concernee
+	 * @throws RemoteException 
 	 * 
 	 */
-	public void delNotification(String utilisateurCible,String utilisateurSource, String competence);
+	public void delNotification(String utilisateurCible,String utilisateurSource, String competence) throws RemoteException;
 	
 	/**
 	 * Envoi la liste des notifications qui le concerne a un utilisateur
 	 * @param utilisateur Utilisateur qui demande ses notifications
 	 * @return Liste de ses notifications avec les champs separes par des #
+	 * @throws RemoteException 
 	 */
-	public ArrayList<String> getNotificationsUtilisateur(String utilisateur);
+	public ArrayList<String> getNotificationsUtilisateur(String utilisateur) throws RemoteException;
 	
 }

@@ -1,4 +1,7 @@
+import java.net.MalformedURLException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,9 +39,14 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 	 * @param competence Objet de la notification
 	 * @return Resultat
 	 */
-	public String creerNotification(String utilSource, String utilCible,String competence, String type) {
+	public String creerNotification(String utilSource, String utilCible,String competence, String type) throws RemoteException{
 		Notification notification = new Notification(utilSource, utilCible, competence, type);
-		ArrayList<Notification> listeNotifications = this.listeNotification.get(utilCible);
+		ArrayList<Notification> listeNotifications;
+		if(this.listeNotification.get(utilCible) != null){
+			listeNotifications = this.listeNotification.get(utilCible);
+		}else{
+			listeNotifications = new ArrayList<Notification>();
+		}
 		listeNotifications.add(notification);
 		this.listeNotification.put(utilCible, listeNotifications);
 		return("Votre notification a bien ete envoyee");
@@ -49,10 +57,14 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 	 * @param utilisateur Utilisateur concerne par les notifications
 	 * @return Nombre de notifications pour l'utilisateur
 	 */
-	public int getNombreNotification(String utilisateur) {
-		int nbNotif;
-		nbNotif = this.listeNotification.get(utilisateur).size();
-		return nbNotif;
+	public int getNombreNotification(String utilisateur) throws RemoteException{
+		Integer nbNotif;
+		if(this.listeNotification.containsKey(utilisateur)){
+			nbNotif = this.listeNotification.get(utilisateur).size();
+			return nbNotif;
+		}else{
+			return 0;
+		}
 	}
 	
 	/**
@@ -62,15 +74,21 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 	 * @param competence Competence concernee
 	 * 
 	 */
-	public void delNotification(String utilisateurCible,String utilisateurSource, String competence){
+	public void delNotification(String utilisateurCible,String utilisateurSource, String competence) throws RemoteException{
 		if(this.listeNotification.get(utilisateurCible).size()>0){
+			int index = 0;
+			int trouve = 0;
 			for(Notification notif : this.listeNotification.get(utilisateurCible)){
 				if(notif.getUtilisateurEmetteur().equals(utilisateurSource)){
 					if(notif.getCompetenceConcernee().equals(competence)){
-						int index = this.listeNotification.get(utilisateurCible).indexOf(notif);
-						this.listeNotification.get(utilisateurCible).remove(index);
+						index = this.listeNotification.get(utilisateurCible).indexOf(notif);
+						trouve = 1;
+						break;
 					}
 				}
+			}
+			if(trouve == 1){
+				this.listeNotification.get(utilisateurCible).remove(index);
 			}
 		}
 	}
@@ -80,19 +98,31 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 	 * @param utilisateur Utilisateur qui demande ses notifications
 	 * @return Liste de ses notifications avec les champs separes par des #
 	 */
-	public ArrayList<String> getNotificationsUtilisateur(String utilisateur){
+	public ArrayList<String> getNotificationsUtilisateur(String utilisateur) throws RemoteException{
 		ArrayList<Notification> listeNotifications = this.listeNotification.get(utilisateur);
-		if(listeNotifications.size()>0){
+		if(listeNotifications != null){
 			ArrayList<String> notifications = new ArrayList<String>();
 			int i = 1;
 			for(Notification notif : listeNotifications){
-				notifications.add(i + "#" + notif.getUtilisateurEmetteur()+"#"+notif.getCompetenceConcernee()+"#"+notif.getType());
+				notifications.add(notif.getUtilisateurEmetteur()+"#"+notif.getCompetenceConcernee()+"#"+notif.getType());
 				i++;
 			}
 			return notifications;
 		}else{
 			return null;
 		}
+	}
+	
+	
+	public static void main(String args[]) throws RemoteException, MalformedURLException{
+		try{
+			LocateRegistry.createRegistry(1099);
+		}
+		catch(RemoteException e){
+			LocateRegistry.getRegistry(1099);
+		}
+		serveurNotification notification = new serveurNotification();
+		Naming.rebind("notification", notification);
 	}
 	
 	

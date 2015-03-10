@@ -21,9 +21,9 @@ public class Client {
 		try {
 			Integer choix;
 			do{
-				IntGestionnaireCompetence comp = (IntGestionnaireCompetence) Naming.lookup("//localhost/comp");
-				IntServeurNotification notif = (IntServeurNotification) Naming.lookup("//localhost/notification");
-				int nbnotifs=notif.getNombreNotification(pseudo);
+				IntGestionnaireCompetence gestionnaireComp = (IntGestionnaireCompetence) Naming.lookup("//localhost/gestionnaireComp");
+				IntServeurNotification serveurNotification = (IntServeurNotification) Naming.lookup("//localhost/notification");
+				int nbnotifs = serveurNotification.getNombreNotification(pseudo);
 				IntServeur serveur = (IntServeur) Naming.lookup("//localhost/serveur");
 				IntTheme ServeurTheme = null;
 				String url = "";
@@ -37,6 +37,7 @@ public class Client {
 				System.out.println("6 - Afficher la liste des themes");
 				System.out.println("7 - Renseigner ses compétences");
 				System.out.println("8 - Afficher les notifications ("+nbnotifs+")");
+				System.out.println("9 - Raffraichir la page");
 				System.out.println("0 - Quitter");
 				choix = sc.nextInt();
 				switch (choix)
@@ -122,15 +123,16 @@ public class Client {
 					}
 					else
 					{
-						System.out.println("Aucun réferent pour ce theme, nous allons rechercher les réferents potentiels");
-						System.out.println(comp.ListeRefPotentiel(theme3));
-						System.out.println("Souhaitez vous qu'un des étudiant devienne réferent sur ce theme ? ( Oui ou non");
+						System.out.println("Aucun réferent pour ce theme, nous allons rechercher les réferents potentiels : ");
+						System.out.println("Voici les referents potentiels : ");
+						System.out.println(gestionnaireComp.ListeRefPotentiel(theme3));
+						System.out.println("Souhaitez vous qu'un des étudiants ci-dessus devienne réferent sur ce theme ? ( Oui ou non)");
 						String choix1 = sc.nextLine();
-						if(choix1.toLowerCase()=="oui")
+						if(choix1.toLowerCase().equals("oui"))
 						{
 							System.out.println("Taper le nom de l'étudiant a referencer :");
 							String etu = sc.nextLine();
-							notif.creerNotification(pseudo, etu, theme3, "ref");
+							serveurNotification.creerNotification(pseudo, etu, theme3, "req");
 							System.out.println(etu + "a été prevenu de votre demande : nous vous alerterons des qu'il aura repondu");
 						}
 						
@@ -159,52 +161,67 @@ public class Client {
 					ArrayList<String> listeCompetences = new ArrayList<String>();
 					System.out.println("Veuillez entrer vos compétences ( Taper 0 pour sortir)");
 					String competence = null;
-					while (competence!="0")
+					do
 					{
 						competence = sc.nextLine();
 						listeCompetences.add(competence);
-					}
+					}while(!competence.equals("0"));
 					// On enleve le 0 de la liste
 					listeCompetences.remove(listeCompetences.size()-1);
 					// On ajoute les competences de l'utilisateur courant
-					comp.addReferentPotentiel(pseudo, listeCompetences);
+					gestionnaireComp.addReferentPotentiel(pseudo, listeCompetences);
 					
 					break;
 				case 8:
+					sc.nextLine();
 					System.out.println("Liste des notifications");
-					ArrayList<String> listeNotifications = null;
-					System.out.println(listeNotifications);
-					System.out.println("Taper le numero de la notification a supprimer");
-					int numnotif = sc.nextInt();
-					if (numnotif < listeNotifications.size() || numnotif > listeNotifications.size())
-					{
-						System.out.println("Erreur de saisie");
-					}
-					else
-					{
-						String[] notification = listeNotifications.get(numnotif).split("#");
-						if (notification[4]=="validation")
-						{
-							System.out.println("Confirmez vous vouloir devenir referent sur ce theme( oui non)");
-							String validation = sc.nextLine();
-							if(validation.toLowerCase()=="oui")
-							{
-								notif.delNotification(pseudo, notification[2], notification[3]);
-								notif.creerNotification(pseudo, notification[2], notification[3], "validationOK");
+					ArrayList<String> listeNotifications = serveurNotification.getNotificationsUtilisateur(pseudo);
+					if(listeNotifications != null){
+						for(String notification  : listeNotifications){
+							String[] tabNotifs = notification.split("#");
+							if(tabNotifs[2].equals("req")){
+								/* Demande */
+								System.out.println(tabNotifs[0]+" veut savoir si tu voudrais devenir referent sur le theme "+tabNotifs[1]);
+								System.out.println("Votre choix (oui / non) : ");
+								String reponse = sc.nextLine();
+								if(reponse.equals("oui")){
+									String comp = tabNotifs[1];
+									url = serveur.getTheme(comp);
+									if(!url.isEmpty() ) 
+									{
+										ServeurTheme = (IntTheme) Naming.lookup(url);
+										System.out.println(ServeurTheme.addReferent(pseudo,pseudo));
+										serveurNotification.creerNotification(pseudo, tabNotifs[0], tabNotifs[1], "rep");
+										
+									}
+									else
+									{
+										/* Le theme existe pas on le cree */
+										url = serveur.creerTheme(comp);
+										if(!url.isEmpty() ) 
+										{
+											ServeurTheme = (IntTheme) Naming.lookup(url);
+											System.out.println(ServeurTheme.addReferent(pseudo,pseudo));
+											serveurNotification.creerNotification(pseudo, tabNotifs[0], tabNotifs[1], "rep");
+											
+										}
+										else
+										{
+											System.out.println("Impossible de devenir referent : erreur lors de la creation du theme");
+										}
+									}
+								}
+								serveurNotification.delNotification(pseudo, tabNotifs[0], tabNotifs[1]);
+							}else{
+								/* Réponse */
+								System.out.println(tabNotifs[0]+" a accepte de devenir referent sur le theme "+tabNotifs[1]);
+								serveurNotification.delNotification(pseudo, tabNotifs[0], tabNotifs[1]);
 							}
-							else
-							{
-								notif.delNotification(pseudo, notification[2], notification[3]);
-								notif.creerNotification(pseudo, notification[2], notification[3], "validationNOK");
-							}
-					    
-						}
-						else if (notification[4]=="info" )
-						{
-							notif.delNotification(pseudo, notification[2], notification[3]);
 						}
 					}
 
+					break;
+				case 9:
 					break;
 				case 0:
 					System.out.println("Fin du programme");
