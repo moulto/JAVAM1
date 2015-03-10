@@ -38,9 +38,9 @@ public class Client {
 				System.out.println("4 - Afficher la liste des referents");
 				System.out.println("5 - Afficher le meilleur referent");
 				System.out.println("6 - Afficher la liste des themes");
-				System.out.println("7 - Renseigner ses compétences");
+				System.out.println("7 - Renseigner ses competences");
 				System.out.println("8 - Afficher les notifications ("+nbnotifs+")");
-				System.out.println("9 - Raffraichir la page");
+				System.out.println("9 - Rafraichir la page");
 				System.out.println("0 - Quitter");
 				choix = sc.nextInt();
 				switch (choix)
@@ -60,7 +60,7 @@ public class Client {
 					}
 					else
 					{
-						/* Le theme existe pas on le cree */
+						/* Le theme n'existe pas on le cree */
 						url = serveur.creerTheme(theme);
 						if(!url.isEmpty() ) 
 						{
@@ -126,17 +126,17 @@ public class Client {
 					}
 					else
 					{
-						System.out.println("Aucun réferent pour ce theme, nous allons rechercher les réferents potentiels : ");
+						System.out.println("Aucun referent pour ce theme, nous allons rechercher les referents potentiels : ");
 						System.out.println("Voici les referents potentiels : ");
 						System.out.println(gestionnaireComp.ListeRefPotentiel(theme3));
-						System.out.println("Souhaitez vous qu'un des étudiants ci-dessus devienne réferent sur ce theme ? ( Oui ou non)");
+						System.out.println("Souhaitez vous qu'un des etudiants ci-dessus devienne referent sur ce theme ? ( Oui ou non)");
 						String choix1 = sc.nextLine();
 						if(choix1.toLowerCase().equals("oui"))
 						{
-							System.out.println("Taper le nom de l'étudiant a referencer :");
+							System.out.println("Taper le nom de l'etudiant a referencer :");
 							String etu = sc.nextLine();
 							serveurNotification.creerNotification(pseudo, etu, theme3, "req");
-							System.out.println(etu + "a été prevenu de votre demande : nous vous alerterons des qu'il aura repondu");
+							System.out.println(etu + "a ete prevenu de votre demande : nous vous alerterons des qu'il aura repondu");
 						}
 						
 					}
@@ -162,7 +162,7 @@ public class Client {
 					break;
 				case 7:
 					ArrayList<String> listeCompetences = new ArrayList<String>();
-					System.out.println("Veuillez entrer vos compétences ( Taper 0 pour sortir)");
+					System.out.println("Veuillez entrer vos competences (Taper 0 pour sortir)");
 					String competence = null;
 					do
 					{
@@ -217,7 +217,7 @@ public class Client {
 								}
 								serveurNotification.delNotification(pseudo, tabNotifs[0], tabNotifs[1]);
 							}else{
-								/* Réponse */
+								/* Reponse */
 								System.out.println(tabNotifs[0]+" a accepte de devenir referent sur le theme "+tabNotifs[1]);
 								serveurNotification.delNotification(pseudo, tabNotifs[0], tabNotifs[1]);
 							}
