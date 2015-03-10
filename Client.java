@@ -15,12 +15,15 @@ public class Client {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Bienvenue dans l'application de recommandation");
 		System.out.println("Veuillez taper votre pseudo ");
+		
+		
 		String pseudo = sc.nextLine();
 		
 		
 		try {
 			Integer choix;
 			do{
+				IntGestionnaireProfil gestionnaireProfil = (IntGestionnaireProfil) Naming.lookup("//localhost/gestionnaireProfil");
 				IntGestionnaireCompetence gestionnaireComp = (IntGestionnaireCompetence) Naming.lookup("//localhost/gestionnaireComp");
 				IntServeurNotification serveurNotification = (IntServeurNotification) Naming.lookup("//localhost/notification");
 				int nbnotifs = serveurNotification.getNombreNotification(pseudo);
@@ -170,6 +173,7 @@ public class Client {
 					listeCompetences.remove(listeCompetences.size()-1);
 					// On ajoute les competences de l'utilisateur courant
 					gestionnaireComp.addReferentPotentiel(pseudo, listeCompetences);
+					gestionnaireProfil.creerProfil(pseudo, listeCompetences);
 					
 					break;
 				case 8:
