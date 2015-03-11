@@ -20,7 +20,10 @@ public class GestionnaireCompetence extends UnicastRemoteObject implements IntGe
 		this.RefPotentiel = new HashMap <String , ArrayList<String> >();
 		
 	}
-	
+/**
+ * @param Competence Competence dont on souhaite renvoyer les referents
+ * @return Liste des référents potentiels
+ */
 	public String ListeRefPotentiel(String Competence)
 	{
 		
@@ -32,7 +35,10 @@ public class GestionnaireCompetence extends UnicastRemoteObject implements IntGe
 		}
 		return liste;
 	}
-	
+/**
+ *  @param pseudo Pseudo a ajouter
+ *  @param competences Liste des competences a ajouter
+ */
 	public void addReferentPotentiel(String pseudo, ArrayList<String> competences)
 	{
 		for(String comp : competences)
