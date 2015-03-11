@@ -1,5 +1,7 @@
 import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
@@ -38,8 +40,10 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 	 * @param utilCibe Utilisateur destinataire
 	 * @param competence Objet de la notification
 	 * @return Resultat
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public String creerNotification(String utilSource, String utilCible,String competence, String type) throws RemoteException{
+	public String creerNotification(String utilSource, String utilCible,String competence, String type) throws RemoteException, MalformedURLException, NotBoundException{
 		Notification notification = new Notification(utilSource, utilCible, competence, type);
 		ArrayList<Notification> listeNotifications;
 		if(this.listeNotification.get(utilCible) != null){
@@ -49,6 +53,8 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 		}
 		listeNotifications.add(notification);
 		this.listeNotification.put(utilCible, listeNotifications);
+		IntClient cl = (IntClient) Naming.lookup("//localhost/"+utilCible);
+		cl.afficherNotif();
 		return("Votre notification a bien ete envoyee");
 	}
 

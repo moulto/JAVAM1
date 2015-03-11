@@ -42,4 +42,6 @@ public interface IntServeur extends Remote{
 	
 	
 	public String creerProfil(String pseudo, ArrayList<String> competences) throws RemoteException, MalformedURLException, NotBoundException;
+	
+	public void creerClient(String pseudo) throws RemoteException, MalformedURLException;
 }
