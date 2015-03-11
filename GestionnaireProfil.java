@@ -38,8 +38,8 @@ public class GestionnaireProfil extends UnicastRemoteObject implements IntGestio
 		catch(RemoteException e){
 			LocateRegistry.getRegistry(1099);
 		}
-		Naming.rebind(pseudo, profil);
-		String url =  "//localhost/"+pseudo;
+		Naming.rebind(pseudo+"-profil", profil);
+		String url =  "//localhost/"+pseudo+"-profil";
 		return url;
 	}
 	

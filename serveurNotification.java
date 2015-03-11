@@ -127,13 +127,13 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 		Naming.rebind("notification", notification);
 	}
 
-	/*
+	
 	@Override
 	public void notifier(String utilisateur) throws RemoteException, MalformedURLException, NotBoundException {
 		IntClient cl = (IntClient) Naming.lookup("//localhost/"+utilisateur);
 		cl.afficherNotif();	
 	}
-	*/
+	
 	
 	
 }
