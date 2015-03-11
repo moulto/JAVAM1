@@ -173,7 +173,7 @@ public class Client {
 					listeCompetences.remove(listeCompetences.size()-1);
 					// On ajoute les competences de l'utilisateur courant
 					gestionnaireComp.addReferentPotentiel(pseudo, listeCompetences);
-					gestionnaireProfil.creerProfil(pseudo, listeCompetences);
+					serveur.creerProfil(pseudo, listeCompetences);
 					
 					break;
 				case 8:
