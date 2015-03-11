@@ -14,10 +14,33 @@ alt !URL empty
 	note right of Serveur : voir getListeReferents
 	loop !endOfList
 		note right of Theme : liste += referent;
-		Theme-->Serveur : <listeTheme>
+		Theme-->Client: <listeReferent>
 	end
-	Serveur->Client :  ""Liste des referents sur le theme <nomTheme> : <listeTheme>""
+	Serveur->Client :  ""Liste des referents sur le theme <nomTheme> : <listeReferent>""
 	
 else URL empty
-	Serveur->Client : ""Impossible de renvoyer la liste des referents : le theme n'existe pas""
+	Serveur->Client : ""Aucun referent pour ce theme, nous allons rechercher les referents potentiels : ""
+	Serveur->Client : ""Voici les referents potentiels : ""
+	Client->GestionnaireCompetence : ListeRefPotentiel():String
+	note right of Theme: voir ListeRefPotentiel
+	loop !endOfList
+			note right of Theme : liste += RefPotentiel;
+			GestionnaireCompetence-->Client: <listeRefPotentiel>
+	end 
+	Serveur->+Client : ""Souhaitez vous qu'un des etudiants ci-dessus devienne referent sur ce theme (Oui ou non)""
+	Client-->-Serveur : Rentre le choix
+	alt choix=oui
+		Serveur->+Client : ""Taper le nom de l'etudiant a referencer : ""
+		Client -->-Serveur : Rentre le nom
+		note right of Serveur : voir creerNotification
+		Client -> ServeurNotification : creerNotification(utilSource:String, utilCible:String, competence:String, type:String) : String
+		alt !listeNotifications=null
+			note left of ServeurNotification : liste deja cree
+		else listeNotifications=null
+			note left of ServeurNotification : liste cree
+		end
+		note left of ServeurNotification : addNotification
+		ServeurNotification->Client: ""Votre notification a bien ete envoyee""
+		Serveur->Client : ""<etudiant> a ete prevenu de votre demande : nous vous alerterons des qu'il aura repondu""
+	end
 end

@@ -1,0 +1,78 @@
+title Afficher_notifications Sequence
+
+Client-->Serveur : Affiche ses notifications
+
+Serveur->Client : ""Liste des notifications""
+Client->ServeurNotification : getNotificationsUtilisateur(String utilisateur):ArrayList<String>
+note left of ServeurNotification : voir getNotificationsUtilisateur
+alt listeNotifications!=null
+	note left of ServeurNotification : recupere l'ensemble des notifications
+else listeNotifications=null
+	note left of ServeurNotification : retourne null
+end
+
+alt listeNotifications!=null
+	loop EndOfList notification
+		alt notification = req
+			Serveur->Client : ""<utilisateur> veut savoir si tu voudrais devenir referent sur le theme <theme>""
+			Serveur->+Client : ""Votre choix (oui / non) : ""
+			Client-->-Serveur : Rentre le choix
+			alt reponse == oui
+				Client->+Serveur: getTheme(String libelle): String
+				note right of Serveur : voir getTheme
+				Serveur-->-Client : Renvoi URL
+				alt !URL isEmpty
+					note left of Serveur : Le client devient referent
+					Client-> Theme : addReferent(String recommandant, String recommande): String
+					note right of Serveur : voir addReferent
+					alt recommande not exist 
+						Theme->Client : ""Votre recommandation a ete ajoutee""
+					else recommande exist
+						alt recommande is in the list
+							Theme->Client : ""Vous avez deja vote pour ce referent""
+						else recommande is not in the list
+							Theme->Client : ""Votre recommandation a ete ajoutee""
+					end
+					Client -> ServeurNotification : creerNotification(utilSource:String, utilCible:String, competence:String, type:String) : String
+					note left of ServeurNotification : voir creerNotification
+					alt !listeNotifications=null
+						note left of ServeurNotification : liste deja cree
+					else listeNotifications=null
+						note left of ServeurNotification : liste cree
+					end
+					ServeurNotification->Client: ""Votre notification a bien ete envoyee""
+				else URL isEmpty
+					Client->Serveur: creerTheme(String libelle): String
+					note right of Serveur : voir creerTheme
+					alt theme exist
+						GestionnaireTheme-->Serveur : return ""
+					else theme not exist
+						Serveur->GestionnaireTheme: creerTheme(String libelle):
+						GestionnaireTheme-->Serveur : return url
+					end
+					alt !URL empty
+						Client-> Theme : addReferent(String recommandant, String recommande): String
+						note right of Serveur : voir addReferent
+						alt recommande not exist 
+							Theme->Client : ""Votre recommandation a ete ajoutee""
+						else recommande exist
+							alt recommande is in the list
+								Theme->Client : ""Vous avez deja vote pour ce referent""
+							else recommande is not in the list
+								Theme->Client : ""Votre recommandation a ete ajoutee""
+							end
+						end
+					else URL empty
+						Serveur->Client : ""Impossible de devenir referent : erreur lors de la creation de theme""
+					end
+				end
+			end
+			Client->ServeurNotification :  delNotification(String utilisateurCible,String utilisateurSource, String competence):void
+			note left of ServeurNotification : Voir delNotification
+		else reponse != req
+			Serveur->Client : ""<utilisateur> a accepte de devenir referent sur le theme <theme>""
+			Client->ServeurNotification :  delNotification(String utilisateurCible,String utilisateurSource, String competence):void
+			note left of ServeurNotification : Voir delNotification
+		end
+	end
+end
