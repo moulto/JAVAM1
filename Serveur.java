@@ -35,6 +35,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	public Serveur() throws RemoteException{
 		super();
 		this.listeThemes = new HashMap<String,String>();
+		this.listeProfils = new HashMap<String, String>();
 	}
 	
 	/**
@@ -133,6 +134,11 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		//System.out.println("Le serveur a ete cree");
 		
 		/* On met des donnees en memoire pour faire des tests */
+	}
+
+	@Override
+	public void creerClient(String pseudo) throws RemoteException, MalformedURLException {
+		
 	}
 	
 }

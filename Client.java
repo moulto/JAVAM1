@@ -2,32 +2,56 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
 
-public class Client {
 
+public class Client extends UnicastRemoteObject implements IntClient{
+	
+	
+	
 
-	public static void main(String args[])
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public Client() throws RemoteException {
+		super();
+	}
+
+	public static void main(String args[]) throws RemoteException, MalformedURLException
 	{
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Bienvenue dans l'application de recommandation");
 		System.out.println("Veuillez taper votre pseudo ");
 		
-		
 		String pseudo = sc.nextLine();
+		
+		Client cl = new Client();
+		try{
+			LocateRegistry.createRegistry(1099);
+		}
+		catch(RemoteException e){
+			LocateRegistry.getRegistry(1099);
+		}
+		Naming.rebind(pseudo, cl);
 		
 		
 		try {
 			Integer choix;
 			do{
+				IntServeur serveur = (IntServeur) Naming.lookup("//localhost/serveur");
 				IntGestionnaireProfil gestionnaireProfil = (IntGestionnaireProfil) Naming.lookup("//localhost/gestionnaireProfil");
 				IntGestionnaireCompetence gestionnaireComp = (IntGestionnaireCompetence) Naming.lookup("//localhost/gestionnaireComp");
 				IntServeurNotification serveurNotification = (IntServeurNotification) Naming.lookup("//localhost/notification");
 				int nbnotifs = serveurNotification.getNombreNotification(pseudo);
-				IntServeur serveur = (IntServeur) Naming.lookup("//localhost/serveur");
+				
 				IntTheme ServeurTheme = null;
 				String url = "";
 				System.out.println("\nVous etes bien connectes sur le serveur");
@@ -136,6 +160,7 @@ public class Client {
 							System.out.println("Taper le nom de l'etudiant a referencer :");
 							String etu = sc.nextLine();
 							serveurNotification.creerNotification(pseudo, etu, theme3, "req");
+							serveurNotification.notifier(etu);
 							System.out.println(etu + "a ete prevenu de votre demande : nous vous alerterons des qu'il aura repondu");
 						}
 						
@@ -207,7 +232,7 @@ public class Client {
 											ServeurTheme = (IntTheme) Naming.lookup(url);
 											System.out.println(ServeurTheme.addReferent(pseudo,pseudo));
 											serveurNotification.creerNotification(pseudo, tabNotifs[0], tabNotifs[1], "rep");
-											
+											serveurNotification.notifier(tabNotifs[0]);
 										}
 										else
 										{
@@ -249,5 +274,10 @@ public class Client {
 		}
 		sc.close();
 		
+	}
+
+	@Override
+	public void afficherNotif() throws RemoteException {
+		JOptionPane.showMessageDialog(null,"Vous avez une nouvelle notification !","Nouvelle notification",JOptionPane.INFORMATION_MESSAGE);	
 	}
 }

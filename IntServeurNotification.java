@@ -1,3 +1,5 @@
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -16,8 +18,10 @@ public interface IntServeurNotification extends Remote{
 	 * @param competence Objet de la notification
 	 * @return Resultat
 	 * @throws RemoteException 
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
 	 */
-	public String creerNotification(String utilSource, String utilCible, String competence, String type) throws RemoteException;
+	public String creerNotification(String utilSource, String utilCible, String competence, String type) throws RemoteException, MalformedURLException, NotBoundException;
 	
 	/**
 	 * Donne le nombre de notifications qui concernent l'utilisateur en parametre
@@ -44,5 +48,7 @@ public interface IntServeurNotification extends Remote{
 	 * @throws RemoteException 
 	 */
 	public ArrayList<String> getNotificationsUtilisateur(String utilisateur) throws RemoteException;
+	
+	public void notifier(String utilisateur) throws RemoteException, MalformedURLException, NotBoundException;
 	
 }
