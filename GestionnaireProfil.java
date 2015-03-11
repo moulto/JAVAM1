@@ -5,7 +5,10 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-
+/**
+ * Gestionnaire de profil qui permet de créer des objets remote Profils
+ *
+ */
 public class GestionnaireProfil extends UnicastRemoteObject implements IntGestionnaireProfil {
 
 	protected GestionnaireProfil() throws RemoteException {
@@ -19,6 +22,14 @@ public class GestionnaireProfil extends UnicastRemoteObject implements IntGestio
 	private static final long serialVersionUID = 1L;
 
 	@Override
+	/**
+	 * Creer un profil remote
+	 * @param pseudo Identifiant de l'étudiant
+	 * @param competences Liste des competences
+	 * @return Résultat de la création
+	 * @throws RemoteException
+	 * @throws MalformedURLException
+	 */
 	public String creerProfil(String pseudo, ArrayList<String> competences) throws RemoteException, MalformedURLException {
 		Profil profil = new Profil(pseudo,competences);
 		try{

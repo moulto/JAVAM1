@@ -43,14 +43,14 @@ public class GestionnaireCompetence extends UnicastRemoteObject implements IntGe
 	{
 		for(String comp : competences)
 		{
-			// Si la compétence n'existe pas on la crée et on ajoute le profil
+			// Si la competence n'existe pas on la cree et on ajoute le profil
 			if (!RefPotentiel.containsKey(comp))
 					{
 						ArrayList<String> Referents = new ArrayList<String>();
 						Referents.add(pseudo);
 						this.RefPotentiel.put(comp, Referents);
 					}
-			// Si la compétence existe on ajoute juste le profil
+			// Si la competence existe on ajoute juste le profil
 			else
 			{
 				RefPotentiel.get(comp).add(pseudo);
