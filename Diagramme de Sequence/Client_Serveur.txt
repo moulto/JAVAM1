@@ -14,6 +14,9 @@ Serveur->Client : ""3 - Supprimer une recommandation""
 Serveur->Client : ""4 - Afficher la liste des referents""
 Serveur->Client : ""5 - Afficher le meilleur referent ""
 Serveur->Client : ""6 - Afficher la liste des themes""
+Serveur->Client : ""7 - Renseigner ses competences""
+Serveur->Client : ""8 - Afficher les notifications <nbnotif>""
+Serveur->Client : ""9 - Rafraichir la page""
 Serveur->Client : ""0 - Quitter""
 Client-->-Serveur : Rentre le choix
 
@@ -29,6 +32,12 @@ else choix = 5
 Note left of Serveur : Afficher le meilleur referent
 else choix = 6
 Note left of Serveur : Afficher la liste des themes
+else choix = 7
+Note left of Serveur : Renseigner ses competences
+else choix = 8
+Note left of Serveur : Afficher les notifications
+else choix = 9
+Note left of Serveur : Rafraichir la page
 else choix = 0
 Note left of Serveur : Quitter
 end

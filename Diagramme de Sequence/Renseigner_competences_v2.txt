@@ -1,0 +1,20 @@
+title Renseigner_competences Sequence
+
+Client-->Serveur : Renseigne ses competences
+
+Serveur->Client : ""Veuillez entrer vos competences (Taper 0 pour sortir)""
+
+loop competence!=0
+	Client-->Serveur : Rentre sa competence
+end
+
+Serveur->GestionnaireCompetence : addReferentPotentiel(String pseudo, ArrayList<String> competences) : void
+note left of GestionnaireCompetence : voir addReferentPotentiel
+
+loop EndOfList competence
+	alt competence not exist
+		note left of GestionnaireCompetence : Cree competence et ajoute profil
+	else
+		note left of GestionnaireCompetence : Ajoute profil
+	end
+end

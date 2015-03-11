@@ -48,6 +48,6 @@ else URL empty
 			end
 		end
 	else URL empty
-		Serveur->Client : ""Impossible de devenir referent""
+		Serveur->Client : ""Impossible de devenir referent : erreur lors de la creation de theme""
 	end
 end
