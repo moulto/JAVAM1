@@ -160,6 +160,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 							System.out.println("Taper le nom de l'etudiant a referencer :");
 							String etu = sc.nextLine();
 							serveurNotification.creerNotification(pseudo, etu, theme3, "req");
+							//serveurNotification.notifier(pseudo);
 							System.out.println(etu + "a ete prevenu de votre demande : nous vous alerterons des qu'il aura repondu");
 						}
 						
@@ -231,7 +232,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 											ServeurTheme = (IntTheme) Naming.lookup(url);
 											System.out.println(ServeurTheme.addReferent(pseudo,pseudo));
 											serveurNotification.creerNotification(pseudo, tabNotifs[0], tabNotifs[1], "rep");
-											
+											//serveurNotification.notifier(pseudo);
 										}
 										else
 										{

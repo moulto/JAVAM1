@@ -49,4 +49,6 @@ public interface IntServeurNotification extends Remote{
 	 */
 	public ArrayList<String> getNotificationsUtilisateur(String utilisateur) throws RemoteException;
 	
+	// public void notifier(String utilisateur) throws RemoteException, MalformedURLException, NotBoundException;
+	
 }

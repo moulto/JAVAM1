@@ -53,8 +53,6 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 		}
 		listeNotifications.add(notification);
 		this.listeNotification.put(utilCible, listeNotifications);
-		IntClient cl = (IntClient) Naming.lookup("//localhost/"+utilCible);
-		cl.afficherNotif();
 		return("Votre notification a bien ete envoyee");
 	}
 
@@ -128,6 +126,14 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 		serveurNotification notification = new serveurNotification();
 		Naming.rebind("notification", notification);
 	}
+
+	/*
+	@Override
+	public void notifier(String utilisateur) throws RemoteException, MalformedURLException, NotBoundException {
+		IntClient cl = (IntClient) Naming.lookup("//localhost/"+utilisateur);
+		cl.afficherNotif();	
+	}
+	*/
 	
 	
 }
