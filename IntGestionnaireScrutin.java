@@ -8,5 +8,5 @@ public interface IntGestionnaireScrutin {
 	 * @param pseudo Pseudo de l'etudiant concerné par le scrutin
 	 * @return Reference du nouveau scrutin
 	 */
-	public String creerScrutin(String pseudo) throws RemoteException, MalformedURLException;
+	public String creerScrutin(String pseudo,Integer time) throws RemoteException, MalformedURLException;
 }

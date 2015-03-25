@@ -279,7 +279,10 @@ public class Client extends UnicastRemoteObject implements IntClient{
 				case 9:
 					break;
 				case 10:
-					
+					if(!isModerateur){
+						/* Se proposer moderateur */
+						
+					}
 					break;
 				case 0:
 					System.out.println("Fin du programme");

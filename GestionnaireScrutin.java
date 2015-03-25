@@ -37,7 +37,7 @@ public class GestionnaireScrutin extends UnicastRemoteObject implements IntGesti
 			LocateRegistry.getRegistry(1099);
 		}
 		Naming.rebind(pseudo, scrutin);
-		String url =  "//localhost/scrutin/"+pseudo;
+		String url =  "//localhost/scrutin-"+pseudo;
 		ThreadScrutin t1 = new ThreadScrutin(time,pseudo);
 		t1.run();
 		return url;
@@ -57,7 +57,8 @@ public class GestionnaireScrutin extends UnicastRemoteObject implements IntGesti
 			LocateRegistry.getRegistry(1099);
 		}
 		GestionnaireScrutin gestionnaire = new GestionnaireScrutin();
-		Naming.rebind("gestionnaire", gestionnaire);
+		Naming.rebind("gestionnaireScrutin", gestionnaire);
 	}
+
 
 }

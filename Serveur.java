@@ -125,6 +125,11 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		}
 	}
 	
+	public String creerScrutin(String pseudo, int time) throws RemoteException, MalformedURLException, NotBoundException{
+		IntGestionnaireScrutin gestionnaireScrutin = (IntGestionnaireScrutin) Naming.lookup("//localhost/gestionnaireScrutin");
+		return(gestionnaireScrutin.creerScrutin(pseudo, time));
+	}
+	
 	/**
 	 * Fonction principale du serveur
 	 * @param args
