@@ -8,6 +8,7 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 
 	protected Profil() throws RemoteException {
 		super();
+		this.moderateur=false;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -16,6 +17,7 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private Boolean moderateur;
 	/**
 	 * Pseudo de l'etudiant auquel le profil appartient
 	 */
@@ -40,6 +42,10 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 		return this.pseudo;
 	}
 
+	public void setModerateur() throws RemoteException{
+		this.moderateur=true;
+	}
+	
 
 	@Override
 	public ArrayList<String> getCompetences() throws RemoteException{
