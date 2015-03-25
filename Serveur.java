@@ -127,6 +127,12 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	
 	public String creerScrutin(String pseudo, int time) throws RemoteException, MalformedURLException, NotBoundException{
 		IntGestionnaireScrutin gestionnaireScrutin = (IntGestionnaireScrutin) Naming.lookup("//localhost/gestionnaireScrutin");
+		IntServeurNotification serveurNotif = (IntServeurNotification) Naming.lookup("//localhost/notification");
+		Object tab[] =  this.listeProfils.keySet().toArray();
+		int i;
+		for(i=0;i<tab.length;i++){
+			serveurNotif.creerNotification(pseudo, (String) tab[i], "", "vote");
+		}
 		return(gestionnaireScrutin.creerScrutin(pseudo, time));
 	}
 	

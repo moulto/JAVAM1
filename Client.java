@@ -268,9 +268,20 @@ public class Client extends UnicastRemoteObject implements IntClient{
 								}
 								serveurNotification.delNotification(pseudo, tabNotifs[0], tabNotifs[1]);
 							}else{
+								if(tabNotifs[2].equals("rep")){
 								/* Reponse */
 								System.out.println(tabNotifs[0]+" a accepte de devenir referent sur le theme "+tabNotifs[1]);
 								serveurNotification.delNotification(pseudo, tabNotifs[0], tabNotifs[1]);
+								}else{
+									if(tabNotifs[2].equals("vote")){
+										String vote = null;
+										do{
+											System.out.println(tabNotifs[0]+" souhaite devenir moderateur, merci de voter : (oui/non/blanc)");
+											vote = sc.nextLine();
+										}while(!vote.equalsIgnoreCase("oui") && !vote.equalsIgnoreCase("non") && !vote.equalsIgnoreCase("blanc"));
+										
+									}
+								}
 							}
 						}
 					}
@@ -281,7 +292,13 @@ public class Client extends UnicastRemoteObject implements IntClient{
 				case 10:
 					if(!isModerateur){
 						/* Se proposer moderateur */
-						
+						System.out.println("Combien de secondes voulez vous que le vote dure ? (0 pour quitter)");
+						int time = sc.nextInt();
+						sc.nextLine();
+						if(time != 0){
+							serveur.creerScrutin(pseudo, time);
+							System.out.println("Votre demande a bien ete prise en compte, vous serez informe du resultat a la fin du vote");
+						}
 					}
 					break;
 				case 0:

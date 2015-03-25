@@ -26,7 +26,7 @@ public class Scrutin extends UnicastRemoteObject implements IntScrutin{
 	
 	private HashMap<String , Integer > listeVoix;
 	
-	public void voter(String pseudo, String votant, Integer voix) throws RemoteException, MalformedURLException
+	public void voter(String votant, Integer voix) throws RemoteException, MalformedURLException
 	{
 		this.listeVoix.put(votant, voix);
 	}
