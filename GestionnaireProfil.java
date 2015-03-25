@@ -30,8 +30,8 @@ public class GestionnaireProfil extends UnicastRemoteObject implements IntGestio
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 */
-	public String creerProfil(String pseudo, ArrayList<String> competences) throws RemoteException, MalformedURLException {
-		Profil profil = new Profil(pseudo,competences);
+	public String creerProfil(String pseudo) throws RemoteException, MalformedURLException {
+		Profil profil = new Profil(pseudo);
 		try{
 			LocateRegistry.createRegistry(1099);
 		}

@@ -105,14 +105,23 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	 * @param competences Liste des competences de l'etudiant
 	 * @return Url de l'objet distribue profil
 	 */
-	public String creerProfil(String pseudo, ArrayList<String> competences) throws RemoteException, MalformedURLException, NotBoundException{
+	public String creerProfil(String pseudo) throws RemoteException, MalformedURLException, NotBoundException{
 		if(this.listeProfils.containsKey(pseudo)){
 			return "";
 		}else{
 			IntGestionnaireProfil gestionnaireProfil = (IntGestionnaireProfil) Naming.lookup("//localhost/gestionnaireProfil");
-			String url = gestionnaireProfil.creerProfil(pseudo,competences);
+			String url = gestionnaireProfil.creerProfil(pseudo);
 			this.listeProfils.put(pseudo, url);
 			return url;
+		}
+	}
+	
+	
+	public String getProfil(String pseudo) throws RemoteException{
+		if(this.listeProfils.containsKey(pseudo)){
+			return this.listeProfils.get(pseudo);
+		}else{
+			return ""; 
 		}
 	}
 	
@@ -134,11 +143,6 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		//System.out.println("Le serveur a ete cree");
 		
 		/* On met des donnees en memoire pour faire des tests */
-	}
-
-	@Override
-	public void creerClient(String pseudo) throws RemoteException, MalformedURLException {
-		
 	}
 	
 }
