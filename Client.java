@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import com.sun.scenario.effect.impl.prism.PrFilterContext;
+
 
 public class Client extends UnicastRemoteObject implements IntClient{
 	
@@ -33,6 +35,9 @@ public class Client extends UnicastRemoteObject implements IntClient{
 		
 		String pseudo = sc.nextLine();
 		
+		boolean profilCree = false;
+		boolean isModerateur = false;
+		
 		Client cl = new Client();
 		try{
 			LocateRegistry.createRegistry(1099);
@@ -42,7 +47,6 @@ public class Client extends UnicastRemoteObject implements IntClient{
 		}
 		Naming.rebind(pseudo, cl);
 		
-		
 		try {
 			Integer choix;
 			do{
@@ -50,6 +54,19 @@ public class Client extends UnicastRemoteObject implements IntClient{
 				IntGestionnaireProfil gestionnaireProfil = (IntGestionnaireProfil) Naming.lookup("//localhost/gestionnaireProfil");
 				IntGestionnaireCompetence gestionnaireComp = (IntGestionnaireCompetence) Naming.lookup("//localhost/gestionnaireComp");
 				IntServeurNotification serveurNotification = (IntServeurNotification) Naming.lookup("//localhost/notification");
+				
+				if(profilCree == false){
+					/* on cree le profil */
+					if(serveur.creerProfil(pseudo).equals("")){
+						System.out.println("Erreur a la creation du profil");
+					}else{
+						profilCree =true;
+					}
+				}else{
+					IntProfil profil = (IntProfil) Naming.lookup(serveur.getProfil(pseudo));
+					isModerateur = profil.isModerateur();
+				}
+				
 				int nbnotifs = serveurNotification.getNombreNotification(pseudo);
 				
 				IntTheme ServeurTheme = null;
@@ -65,6 +82,11 @@ public class Client extends UnicastRemoteObject implements IntClient{
 				System.out.println("7 - Renseigner ses competences");
 				System.out.println("8 - Afficher les notifications ("+nbnotifs+")");
 				System.out.println("9 - Rafraichir la page");
+				if(isModerateur){
+					System.out.println("10 - Fonctions de moderation");
+				}else{
+					System.out.println("10 - Postuler en tant que moderateur");
+				}
 				System.out.println("0 - Quitter");
 				choix = sc.nextInt();
 				switch (choix)
@@ -193,12 +215,16 @@ public class Client extends UnicastRemoteObject implements IntClient{
 					{
 						competence = sc.nextLine();
 						listeCompetences.add(competence);
+						IntProfil profil = (IntProfil) Naming.lookup(serveur.getProfil(pseudo));
+						if(!competence.equals("0")){
+							profil.addCompetences(competence);
+						}
 					}while(!competence.equals("0"));
 					// On enleve le 0 de la liste
 					listeCompetences.remove(listeCompetences.size()-1);
 					// On ajoute les competences de l'utilisateur courant
 					gestionnaireComp.addReferentPotentiel(pseudo, listeCompetences);
-					serveur.creerProfil(pseudo, listeCompetences);
+					
 					
 					break;
 				case 8:
@@ -251,6 +277,9 @@ public class Client extends UnicastRemoteObject implements IntClient{
 
 					break;
 				case 9:
+					break;
+				case 10:
+					
 					break;
 				case 0:
 					System.out.println("Fin du programme");

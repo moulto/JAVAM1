@@ -6,12 +6,6 @@ import java.util.ArrayList;
 
 public class Profil extends UnicastRemoteObject implements IntProfil {
 
-	protected Profil() throws RemoteException {
-		super();
-		this.moderateur=false;
-		// TODO Auto-generated constructor stub
-	}
-
 	/**
 	 * 
 	 */
@@ -29,10 +23,11 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 	private ArrayList<String> competences;
 
 	
-	public Profil(String pseudo, ArrayList<String> competences) throws RemoteException{
+	public Profil(String pseudo) throws RemoteException{
 		super();
 		this.pseudo = pseudo;
-		this.competences = competences;
+		this.competences = new ArrayList<String>();
+		this.moderateur = false;
 	}
 
 
@@ -52,6 +47,21 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 		// TODO Auto-generated method stub
 		return this.competences;
 	}
+
+
+	@Override
+	public boolean isModerateur() throws RemoteException {
+		// TODO Auto-generated method stub
+		return this.moderateur;
+	}
 	
+	public String addCompetences(String competence) throws RemoteException, MalformedURLException{
+		if(this.competences.contains(competence)){
+			return "";
+		}else{
+			this.competences.add(competence);
+			return "La competence  a bien ete ajoutee";
+		}
+	}
 	
 }

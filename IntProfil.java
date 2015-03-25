@@ -11,4 +11,8 @@ public interface IntProfil extends Remote{
 	public ArrayList<String> getCompetences() throws RemoteException, MalformedURLException;
 	
 	public void setModerateur() throws RemoteException, MalformedURLException;
+	
+	public boolean isModerateur() throws RemoteException;
+	
+	public String addCompetences(String competence) throws RemoteException, MalformedURLException;
 }

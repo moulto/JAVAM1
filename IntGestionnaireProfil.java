@@ -17,5 +17,5 @@ public interface IntGestionnaireProfil extends Remote {
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 */
-	 public String creerProfil(String pseudo, ArrayList<String> competences) throws RemoteException, MalformedURLException;
+	 public String creerProfil(String pseudo) throws RemoteException, MalformedURLException;
 }
