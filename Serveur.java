@@ -130,6 +130,11 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		return(gestionnaireScrutin.creerScrutin(pseudo, time));
 	}
 	
+	@Override
+	public int getNbUtilisateurs() throws RemoteException {
+		return this.listeProfils.size();
+	}
+	
 	/**
 	 * Fonction principale du serveur
 	 * @param args
@@ -149,5 +154,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		
 		/* On met des donnees en memoire pour faire des tests */
 	}
+
+	
 	
 }

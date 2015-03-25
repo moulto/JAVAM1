@@ -46,4 +46,6 @@ public interface IntServeur extends Remote{
 	public String getProfil(String pseudo) throws RemoteException;
 	
 	public String creerScrutin(String pseudo,int time) throws RemoteException, MalformedURLException, NotBoundException;
+	
+	public int getNbUtilisateurs() throws RemoteException;
 }
