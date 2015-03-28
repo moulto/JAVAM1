@@ -9,8 +9,6 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import com.sun.scenario.effect.impl.prism.PrFilterContext;
-
 
 public class Client extends UnicastRemoteObject implements IntClient{
 	
@@ -26,35 +24,44 @@ public class Client extends UnicastRemoteObject implements IntClient{
 		super();
 	}
 
-	public static void main(String args[]) throws RemoteException, MalformedURLException
+	public static void main(String args[]) throws RemoteException, MalformedURLException, InterruptedException
 	{
 		
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Bienvenue dans l'application de recommandation");
-		System.out.println("Veuillez taper votre pseudo ");
+		Scanner sc = new Scanner(System.in); /* Scanner pour les saisie utilisateurs */
+ 		boolean profilCree = false; /* Booleen pour savoir si le profil de l'utilisateur est bien cree */
+		boolean isModerateur = false; /* Booleen pour savoir si l'utilisateur est moderateur */
+		Client cl = new Client(); /* Objet utilisateur */
 		
+		/* On demande le pseudo de l'utilisateur pour créer son profil */
+		System.out.println("Bienvenue dans l'application de recommandation");
+		System.out.println("Veuillez taper votre pseudo ");	
 		String pseudo = sc.nextLine();
 		
-		boolean profilCree = false;
-		boolean isModerateur = false;
 		
-		Client cl = new Client();
+		
+		/* On récupère le Regustry */
 		try{
 			LocateRegistry.createRegistry(1099);
 		}
 		catch(RemoteException e){
 			LocateRegistry.getRegistry(1099);
 		}
+		
+		/* On enregisre le client au catalogue à partir de son pseudo */
 		Naming.rebind(pseudo, cl);
 		
+		/* Menu Pinicpal */
 		try {
 			Integer choix;
 			do{
+				/* On récupère les objets distribués dont on a besoin dans le clien */
 				IntServeur serveur = (IntServeur) Naming.lookup("//localhost/serveur");
-				IntGestionnaireProfil gestionnaireProfil = (IntGestionnaireProfil) Naming.lookup("//localhost/gestionnaireProfil");
 				IntGestionnaireCompetence gestionnaireComp = (IntGestionnaireCompetence) Naming.lookup("//localhost/gestionnaireComp");
 				IntServeurNotification serveurNotification = (IntServeurNotification) Naming.lookup("//localhost/notification");
+				IntTheme ServeurTheme = null;
+				String url = "";
 				
+				/* On vérifie si le profil de l'utilisateur a bie ete cree */
 				if(profilCree == false){
 					/* on cree le profil */
 					if(serveur.creerProfil(pseudo).equals("")){
@@ -67,31 +74,31 @@ public class Client extends UnicastRemoteObject implements IntClient{
 					isModerateur = profil.isModerateur();
 				}
 				
+				/* On récupère le nombre de notifications de l'utilisateur */
 				int nbnotifs = serveurNotification.getNombreNotification(pseudo);
 				
-				IntTheme ServeurTheme = null;
-				String url = "";
+				
 				System.out.println("\nVous etes bien connectes sur le serveur");
 				System.out.println("Tapez le numero de l'action a realiser");
-				System.out.println("1 - Devenir referent");
-				System.out.println("2 - Recommander un etudiant");
-				System.out.println("3 - Supprimer une recommandation");
-				System.out.println("4 - Afficher la liste des referents");
-				System.out.println("5 - Afficher le meilleur referent");
-				System.out.println("6 - Afficher la liste des themes");
-				System.out.println("7 - Renseigner ses competences");
-				System.out.println("8 - Afficher les notifications ("+nbnotifs+")");
-				System.out.println("9 - Rafraichir la page");
+				System.out.println("1  - Devenir referent");
+				System.out.println("2  - Recommander un etudiant");
+				System.out.println("3  - Supprimer une recommandation");
+				System.out.println("4  - Afficher la liste des referents");
+				System.out.println("5  - Afficher le meilleur referent");
+				System.out.println("6  - Afficher la liste des themes");
+				System.out.println("7  - Renseigner ses competences");
+				System.out.println("8  - Afficher les notifications ("+nbnotifs+")");
+				System.out.println("9  - Rafraichir la page");
 				if(isModerateur){
-					System.out.println("10 - Fonctions de moderation");
+				System.out.println("10 - Menu moderateur");
 				}else{
-					System.out.println("10 - Postuler en tant que moderateur");
+				System.out.println("10 - Postuler en tant que moderateur");
 				}
-				System.out.println("0 - Quitter");
+				System.out.println("0  - Quitter");
 				choix = sc.nextInt();
 				switch (choix)
 				{
-				case 1 :
+				case 1 : /* Menu pour se proposer comme référent sur un theme */
 					
 					System.out.println("Veuillez taper le theme sur lequel vous souhaitez etre referent");
 					/* On vide avant de lire une autre chaine */
@@ -120,7 +127,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 						}
 					}
 					break;
-				case 2 :
+				case 2 : /* Menu pour recommander un étudiant comme référent sur un thème */
 					System.out.println("Veuillez taper le theme sur lequel vous souhaitez recommander un etudiant");
 					/* On vide avant de lire une autre chaine */
 					sc.nextLine();
@@ -139,7 +146,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 						System.out.println("Impossible de recommander un etudiant : le theme n'existe pas");
 					}
 					break;
-				case 3 :
+				case 3 : /* Menu pour supprimer une recommandation sur un étudiant */
 					System.out.println("Veuillez taper le theme sur lequel vous enlever la recommandation");
 					/* On vide avant de lire une autre chaine */
 					sc.nextLine();
@@ -159,7 +166,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 					}
 	
 					break;
-				case 4 :
+				case 4 : /* Menu pour afficher la liste des référents d'un thème */
 					System.out.println("Veuillez taper le theme pour afficher la liste des referents");
 					/* On vide avant de lire une autre chaine */
 					sc.nextLine();
@@ -188,7 +195,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 						
 					}
 					break;
-				case 5 :
+				case 5 : /* Menu pour afficher le pseudo du meilleur référent sur un thème */
 					System.out.println("Veuillez taper le theme pour afficher le meilleur referent ");
 					/* On vide avant de lire une autre chaine */
 					sc.nextLine();
@@ -204,10 +211,10 @@ public class Client extends UnicastRemoteObject implements IntClient{
 						System.out.println("Impossible de renvoyer le meilleur referent : le theme n'existe pas");
 					}
 					break;
-				case 6:
+				case 6: /* Menu pour afficher la liste ds thèmes */
 					System.out.println("Liste des themes en base : "+serveur.getListeThemes());
 					break;
-				case 7:
+				case 7: /* Menu pour renseigner ses compétences */
 					ArrayList<String> listeCompetences = new ArrayList<String>();
 					System.out.println("Veuillez entrer vos competences (Taper 0 pour sortir)");
 					String competence = null;
@@ -217,7 +224,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 						listeCompetences.add(competence);
 						IntProfil profil = (IntProfil) Naming.lookup(serveur.getProfil(pseudo));
 						if(!competence.equals("0")){
-							profil.addCompetences(competence);
+							System.out.println(profil.addCompetences(competence));
 						}
 					}while(!competence.equals("0"));
 					// On enleve le 0 de la liste
@@ -227,7 +234,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 					
 					
 					break;
-				case 8:
+				case 8: /* Menu pour afficher les notifications */
 					sc.nextLine();
 					System.out.println("Liste des notifications");
 					ArrayList<String> listeNotifications = serveurNotification.getNotificationsUtilisateur(pseudo);
@@ -266,30 +273,54 @@ public class Client extends UnicastRemoteObject implements IntClient{
 										}
 									}
 								}
-								serveurNotification.delNotification(pseudo, tabNotifs[0], tabNotifs[1]);
 							}else{
 								if(tabNotifs[2].equals("rep")){
 								/* Reponse */
 								System.out.println(tabNotifs[0]+" a accepte de devenir referent sur le theme "+tabNotifs[1]);
 								serveurNotification.delNotification(pseudo, tabNotifs[0], tabNotifs[1]);
 								}else{
+									/* Demande d'election de moderateur */
 									if(tabNotifs[2].equals("vote")){
 										String vote = null;
+										/* On boucle tant que l'utilisateur ne saisie pas oui / non ou blanc */
 										do{
+											/* On affiche la demande */
 											System.out.println(tabNotifs[0]+" souhaite devenir moderateur, merci de voter : (oui/non/blanc)");
 											vote = sc.nextLine();
 										}while(!vote.equalsIgnoreCase("oui") && !vote.equalsIgnoreCase("non") && !vote.equalsIgnoreCase("blanc"));
+										 /* On enregistre le vote de l'utilisateur dans le scrutn */
+										/* On transforme le choix de l'utilisateur en voix (0,1 ou 2) */
+										int voix;
+										if(vote.equalsIgnoreCase("oui")){
+											voix = 2;
+										}else if(vote.equalsIgnoreCase("blanc")){
+											voix = 1;
+										}else{
+											voix = 0;
+										}
+										System.out.println(serveur.voter(tabNotifs[0], pseudo, voix));
 										
+									}else{
+										/* Victoire a un scrutin */
+										if(tabNotifs[2].equals("v")){
+											System.out.println(tabNotifs[0]+" a ete elu moderateur");
+										}else{
+											/* Defaite a un scrutin */
+											if(tabNotifs[2].equals("d")){
+												System.out.println(tabNotifs[0]+" n'a pas ete elu moderateur");
+											}
+										}
 									}
 								}
 							}
+							serveurNotification.delNotification(pseudo, tabNotifs[0], tabNotifs[1]);
 						}
 					}
 
 					break;
-				case 9:
+				case 9: /* Raffraichit la page */
 					break;
-				case 10:
+				case 10: /* Postuler en tant que moderateur ou afficher le menu moderateur si on est moderateur */
 					if(!isModerateur){
 						/* Se proposer moderateur */
 						System.out.println("Combien de secondes voulez vous que le vote dure ? (0 pour quitter)");
@@ -301,7 +332,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 						}
 					}
 					break;
-				case 0:
+				case 0: /* Quitter le programme */
 					System.out.println("Fin du programme");
 					break;
 				default :
@@ -326,6 +357,10 @@ public class Client extends UnicastRemoteObject implements IntClient{
 	}
 
 	@Override
+	/**
+	 * Affiche une popup qui informe de la présence d'une nouvelle notification
+	 * @throws RemoteException
+	 */
 	public void afficherNotif() throws RemoteException {
 		JOptionPane.showMessageDialog(null,"Vous avez une nouvelle notification !","Nouvelle notification",JOptionPane.INFORMATION_MESSAGE);	
 	}

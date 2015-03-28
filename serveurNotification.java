@@ -1,7 +1,6 @@
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
@@ -128,7 +127,13 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 	}
 
 	
-	@Override
+	/**
+	 * Affiche une popup sur l'écran de l'utilisateur pour l'informer d'une nouvelle notification
+	 * @param utilisateur Utilisateur que l'on doit notifier
+	 * @throws RemoteException
+	 * @throws MalformedURLException
+	 * @throws NotBoundException
+	 */
 	public void notifier(String utilisateur) throws RemoteException, MalformedURLException, NotBoundException {
 		IntClient cl = (IntClient) Naming.lookup("//localhost/"+utilisateur);
 		cl.afficherNotif();	

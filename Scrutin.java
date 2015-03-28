@@ -1,49 +1,118 @@
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
-import java.util.HashMap;
+import java.util.ArrayList;
 
-public class Scrutin extends UnicastRemoteObject implements IntScrutin{
-
-	protected Scrutin(String pseudo) throws RemoteException {
-		super();
-		this.Etat=1;
-		this.pseudo=pseudo;
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+/* Classe qui représente un scrutin */
+public class Scrutin{
 
 	// Etat du scrutin, 1 ouvert, 0 fermé
-	private Integer Etat;
+	private boolean termine;
 	
+	/**
+	 * Pseudo du candiat
+	 */
 	private String pseudo ;
 	
-	private HashMap<String , Integer > listeVoix;
+	/**
+	 * Nombre de participants au scrutin
+	 */
+	private int nbParticipants;
 	
-	public void voter(String votant, Integer voix) throws RemoteException, MalformedURLException
-	{
-		this.listeVoix.put(votant, voix);
+	/**
+	 * Nombre de votes pours
+	 */
+	private int nbPour;
+	
+	/**
+	 * Nombre de vote contres
+	 */
+	private int nbContre;
+	
+	/**
+	 * Nombre de votes blancs
+	 */
+	private int nbBlanc;
+	
+	/**
+	 * Liste des utilisateurs ayant déjà votés
+	 */
+	private ArrayList<String> listeDejaVote;
+
+	/**
+	 * Constructeur de la classe
+	 * @param pseudo Pseudo du candiat
+	 * @param nbParticipants Nombre de participants au scrutin
+	 */
+	protected Scrutin(String pseudo, int nbParticipants){
+		this.termine=false;
+		this.pseudo=pseudo;
+		this.nbParticipants = nbParticipants;
+		this.listeDejaVote = new ArrayList<String>();
+		this.nbBlanc = 0;
+		this.nbPour = 0;
+		this.nbContre = 0;
 	}
 	
-	public void terminerScrutin() throws RemoteException, MalformedURLException
-	{
-		this.Etat=0;
-		try {
-			IntProfil profil = (IntProfil) Naming.lookup("//localhost/"+this.pseudo+"-profil");
-			profil.setModerateur();
-			
-			
-		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	/**
+	 * Enregistre le vote d'un utilisateur
+	 * @param votant Utilisateur qu vote
+	 * @param voix Choix de l'utilisateur sur le vote (0 = contre / 1 = blanc / 2 = pour)
+	 */
+	public String voter(String votant, Integer voix){
+		/* On regarde si l'utilsateur n'a pas déjà voté pour ce scrutin */
+		if(this.listeDejaVote.contains(votant)){
+			return "Vous avez deja vote pour ce scrutin";
+		}else{
+			this.listeDejaVote.add(votant);
+			switch (voix){
+			case 0:
+				this.nbContre++;
+				break;
+			case 1:
+				this.nbBlanc++;
+				break;
+			case 2:
+				this.nbPour++;
+				break;
+			}
+			/* On regarde si la majorité des participants se sont exprimés */
+			int sommeVotes = nbContre + nbPour + nbBlanc;
+			if(sommeVotes > (nbParticipants/2)){
+				/* La majorite des participants se sont exprimes, le vote est maintenant termine */
+				this.termine=true;
+			}
+			return "Votre vote a bien ete pris en compte";
 		}
-				
+		
+	}
+	
+	/**
+	 * Termine le scrutin et retourne le résultat
+	 * @return True si le candidat est élu et false sinon
+	 */
+	public boolean terminerScrutin(){
+		/* On va maintenant comparer les votes */
+		/* On regarde si les vote POUR sont supérieurs aux autres */
+		if(nbPour > nbBlanc && nbPour > nbContre){
+			return true;
+		}else{
+			return false;
+		}
+	}
+			
+	
+	/**
+	 * Donne l'etat d'un scrutin
+	 * @return True si le scrutin est termine et false sinon
+	 */
+	public boolean isTermine(){
+		return this.termine;
+	}
+	
+	/**
+	 * Retourne le pseudo de l'utilisateur concerne par le scrutin
+	 * @return Pseudo utilisateur
+	 */
+	public String getPseudo(){
+		return this.pseudo;
 	}
 	
 }

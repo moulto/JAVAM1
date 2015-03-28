@@ -6,7 +6,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/* Serveur qui gère toute  la parte comptences des utilisateurs */
 public class GestionnaireCompetence extends UnicastRemoteObject implements IntGestionnaireCompetence {
 	
 	private static final long serialVersionUID = 1L;
@@ -14,17 +14,25 @@ public class GestionnaireCompetence extends UnicastRemoteObject implements IntGe
 	// Liste des referents potentiels
 	private HashMap<String, ArrayList<String>> RefPotentiel;
 	
+	/**
+	 * Constructeur de la classe
+	 * @throws RemoteException
+	 */
 	public GestionnaireCompetence() throws RemoteException
 	{
 		super();
 		this.RefPotentiel = new HashMap <String , ArrayList<String> >();
 		
 	}
-/**
- * @param Competence Competence dont on souhaite renvoyer les referents
- * @return Liste des référents potentiels
- */
-	public String ListeRefPotentiel(String Competence)
+	
+	/**
+	 * Donne la liste de tous les utilisateurs qui sont identifiés comme référents potentiels sur un thème
+	 * @param Competence Thème/ompétence sur lequel l'utilisateur pourrait être référent
+	 * @return Liste des utilisateurs sucepibles d'être réfrent sur le thème donné
+	 * @throws RemoteException
+	 * @throws MalformedURLException
+	 */
+	public String ListeRefPotentiel(String Competence)throws RemoteException, MalformedURLException
 	{
 		
 		Object tab[] =  this.RefPotentiel.get(Competence).toArray();
@@ -35,10 +43,14 @@ public class GestionnaireCompetence extends UnicastRemoteObject implements IntGe
 		}
 		return liste;
 	}
-/**
- *  @param pseudo Pseudo a ajouter
- *  @param competences Liste des competences a ajouter
- */
+
+	/**
+	 * Ajoute un référent potentiel à la liste
+	 * @param pseudo Pseudo de l'utilisateur suceptible d'être référent
+	 * @param competences Liste des compétences sur lesquelles l'utilisateur dit être compétent
+	 * @throws RemoteException
+	 * @throws MalformedURLException
+	 */
 	public void addReferentPotentiel(String pseudo, ArrayList<String> competences)
 	{
 		for(String comp : competences)
@@ -58,6 +70,7 @@ public class GestionnaireCompetence extends UnicastRemoteObject implements IntGe
 		}
 	}
 	
+	/* Main de la classe qui permet de l'enregistrer dans le catalogue des objets remotes */
 	public static void main(String args[]) throws RemoteException, MalformedURLException{
 		try{
 			LocateRegistry.createRegistry(1099);

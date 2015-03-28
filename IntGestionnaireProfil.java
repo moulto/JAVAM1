@@ -1,7 +1,6 @@
 import java.net.MalformedURLException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 /**
  * Interface du gestionnaire de profil qui permet de créer des profils

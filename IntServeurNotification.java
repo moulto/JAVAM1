@@ -49,6 +49,13 @@ public interface IntServeurNotification extends Remote{
 	 */
 	public ArrayList<String> getNotificationsUtilisateur(String utilisateur) throws RemoteException;
 	
+	/**
+	 * Affiche une popup sur l'écran de l'utilisateur pour l'informer d'une nouvelle notification
+	 * @param utilisateur Utilisateur que l'on doit notifier
+	 * @throws RemoteException
+	 * @throws MalformedURLException
+	 * @throws NotBoundException
+	 */
 	public void notifier(String utilisateur) throws RemoteException, MalformedURLException, NotBoundException;
 	
 }

@@ -4,7 +4,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -116,7 +115,12 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		}
 	}
 	
-	
+	/**
+	 * Retourne l'url de l'objet remote profil associé au pseudo utilisateur en paramètre
+	 * @param pseudo Pseudo de l'utilisateur duquel on veut accèder au profil
+	 * @return
+	 * @throws RemoteException
+	 */
 	public String getProfil(String pseudo) throws RemoteException{
 		if(this.listeProfils.containsKey(pseudo)){
 			return this.listeProfils.get(pseudo);
@@ -125,18 +129,91 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		}
 	}
 	
+	/**
+	 * Permet de faire une demande de création d'un scrutin au gestionnaire de scrutin
+	 * @param pseudo Pseudo du candidat
+	 * @param time Durée du scrutin
+	 * @return Résultat de la création du scrutin
+	 * @throws RemoteException
+	 * @throws MalformedURLException
+	 * @throws NotBoundException
+	 */
 	public String creerScrutin(String pseudo, int time) throws RemoteException, MalformedURLException, NotBoundException{
 		IntGestionnaireScrutin gestionnaireScrutin = (IntGestionnaireScrutin) Naming.lookup("//localhost/gestionnaireScrutin");
+		IntServeurNotification serveurNotif = (IntServeurNotification) Naming.lookup("//localhost/notification");
+		String resultat  = gestionnaireScrutin.creerScrutin(pseudo, time,this.getNbUtilisateurs());
+		if(resultat.equals("ok")){
+			Object tab[] =  this.listeProfils.keySet().toArray();
+			int i;
+			/* On notifie les utilisateurs du début du scrutin */
+			for(i=0;i<tab.length;i++){
+				serveurNotif.creerNotification(pseudo, (String) tab[i], "", "vote");
+				serveurNotif.notifier((String) tab[i]);
+			}
+			return "Votre scrutin a bien ete cree";
+		}else{
+			return resultat;
+		}
+	}
+	
+	/**
+	 * Permet à un utilisateur d'enregistrer un vote à un scrutin
+	 * @param pseudoCandidat Nom du candidat => identifiant pour le scrutin
+	 * @param pseudoVotant Nom de l'utilisateur qui vote
+	 * @param voix Vote de l'utiliateur
+	 * @return Résultat de la demande d'enregistrement vote
+	 * @throws RemoteException
+	 * @throws MalformedURLException
+	 * @throws NotBoundException
+	 * @throws InterruptedException
+	 */
+	public String voter(String pseudoCandidat,String pseudoVotant,int voix) throws RemoteException, MalformedURLException, NotBoundException, InterruptedException{
+		IntGestionnaireScrutin gestionnaireScrutin = (IntGestionnaireScrutin) Naming.lookup("//localhost/gestionnaireScrutin");
+		String retour = gestionnaireScrutin.voter(pseudoCandidat, pseudoVotant, voix);
+		if(retour.equals("fin")){
+			/* On lance la cloture du scrutin */
+			this.terminerScrutin(pseudoCandidat);
+			return "";
+		}else{
+			return retour;
+		}
+	}
+	
+	/**
+	 * Permet de fermer un scrutin et de notifier les utilisateur du résultat
+	 * @param pseudoCandidat Identifiant du scrutin
+	 * @throws RemoteException
+	 * @throws MalformedURLException
+	 * @throws NotBoundException
+	 */
+	public void terminerScrutin(String pseudoCandidat) throws RemoteException, MalformedURLException, NotBoundException{
+		IntGestionnaireScrutin gestionnaireScrutin = (IntGestionnaireScrutin) Naming.lookup("//localhost/gestionnaireScrutin");
+		boolean resultat = gestionnaireScrutin.terminerScrutin(pseudoCandidat);
+		String type = null;
+		if(resultat){
+			/* candidat élu on notifie qu'il a gagné */
+			type = "v";
+			IntProfil profilCandidat = (IntProfil) Naming.lookup("//localhost/"+pseudoCandidat+"-profil");
+			profilCandidat.setModerateur();
+		}else{
+			/* on notifie qu'il a perdu */
+			type = "d";
+		}
+		/* On notifie les utilisateurs du résultat */
 		IntServeurNotification serveurNotif = (IntServeurNotification) Naming.lookup("//localhost/notification");
 		Object tab[] =  this.listeProfils.keySet().toArray();
 		int i;
 		for(i=0;i<tab.length;i++){
-			serveurNotif.creerNotification(pseudo, (String) tab[i], "", "vote");
+			serveurNotif.creerNotification(pseudoCandidat, (String) tab[i], "", type);
+			serveurNotif.notifier((String) tab[i]);
 		}
-		return(gestionnaireScrutin.creerScrutin(pseudo, time));
 	}
 	
-	@Override
+	/**
+	 * Retourne le nombre d'utilisateurs dans le système
+	 * @return Nombre d'utilsateur connus dans le système
+	 * @throws RemoteException
+	 */
 	public int getNbUtilisateurs() throws RemoteException {
 		return this.listeProfils.size();
 	}
