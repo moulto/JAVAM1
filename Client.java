@@ -330,6 +330,57 @@ public class Client extends UnicastRemoteObject implements IntClient{
 							serveur.creerScrutin(pseudo, time);
 							System.out.println("Votre demande a bien ete prise en compte, vous serez informe du resultat a la fin du vote");
 						}
+					}else{
+						int choixModerateur = 0;
+						do{
+							/* On affiche le menu du modérateur */
+							System.out.println("Menu du moderateur");
+							System.out.println("1 : Supprimer un thème");
+							System.out.println("2 : Supprimer un référent sur un thème");
+							System.out.println("0 : Quitter le menu moderateur");
+							System.out.println("Votre choix : ");
+							choixModerateur = sc.nextInt();
+							/* on vide le scanner */
+							sc.nextLine();
+							
+							/* on recupère le choix et on fait la'action associee */
+							switch (choixModerateur){
+							case 1:
+								/* Supression d'un thème */
+								System.out.println("Liste des themes en base : "+serveur.getListeThemes());
+								System.out.println("Saisir le nom du theme que vous voulez supprimer");
+								String libelleTheme = "";
+								libelleTheme = sc.nextLine();
+								System.out.println(serveur.delTheme(libelleTheme));
+								break;
+							case 2:
+								/* Supression d'un référent sur un thème */
+								System.out.println("Veuillez taper le theme sur lequel vous souhaitez supprimer referent");
+								/* On vide avant de lire une autre chaine */
+								String libTheme = sc.nextLine();
+								url = serveur.getTheme(libTheme);
+								if(!url.isEmpty() ) 
+								{
+									ServeurTheme = (IntTheme) Naming.lookup(url);
+									System.out.println(ServeurTheme.getListeReferents());
+									System.out.println("Saisir le pseudo du referent a supprimer : ");
+									String referent = sc.nextLine();
+									System.out.println(ServeurTheme.suppReferent(referent));
+									
+								}
+								else
+								{
+									System.out.println("Le theme que vous avez saisi n'existe pas");
+								}
+								break;
+							case 0:
+								/* Sortir du menu moderateur */
+								break;
+							default:
+								System.out.println("Choix incorrect");
+								break;
+							}
+						}while(choixModerateur != 0);
 					}
 					break;
 				case 0: /* Quitter le programme */

@@ -85,6 +85,27 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	}
 	
 	/**
+	 * Supprime un thème
+	 * @param libelle Libelle du thème que l'on veut supprimer
+	 * @return Résultat de la suppression du thème
+	 * @throws RemoteException
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
+	 */
+	public String delTheme(String libelle)throws RemoteException, MalformedURLException, NotBoundException{
+		/* On recupère l'objet */
+		if(this.listeThemes.containsKey(libelle)){
+			/* On supprime l'objet du catalogue des objets remote */
+			Naming.unbind(this.listeThemes.get(libelle));
+			/* On supprime également le thème de la liste des thèmes */
+			this.listeThemes.remove(libelle);
+			return "Le theme a bien ete supprime";
+		}else{
+			return "Le theme que vous voulez supprimer n'existe pas";
+		}
+	}
+	
+	/**
 	 * Retourne la liste des profils
 	 * @return Liste des pseudos des etudiants qui ont un profil
 	 */

@@ -37,6 +37,16 @@ public interface IntServeur extends Remote{
 	public String getListeThemes() throws RemoteException;
 	
 	/**
+	 * Supprime un thème
+	 * @param libelle Libelle du thème que l'on veut supprimer
+	 * @return Résultat de la suppression du thème
+	 * @throws RemoteException
+	 * @throws NotBoundException 
+	 * @throws MalformedURLException 
+	 */
+	public String delTheme(String libelle)throws RemoteException, MalformedURLException, NotBoundException;
+	
+	/**
 	 * Retourne la liste des profils
 	 * @return Liste des pseudos des etudiants qui ont un profil
 	 */

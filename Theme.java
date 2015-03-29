@@ -1,7 +1,5 @@
 import java.net.MalformedURLException;
-import java.rmi.Naming;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -138,6 +136,21 @@ public class Theme extends UnicastRemoteObject implements IntTheme
 			}
 		}
 		return meilleurReferent;
+	}
+	
+	/**
+	 * Supprime un referent sur un theme
+	 * @param pseudo Nom du referent a supprimer
+	 * @return Resultat de la suppression
+	 * @throws RemoteException
+	 */
+	public String suppReferent(String pseudo) throws RemoteException{
+		if(this.recommandation.containsKey(pseudo)){
+			this.recommandation.remove(pseudo);
+			return (pseudo+" a bien ete supprime de la liste des referent pour le theme "+this.getLiblle());
+		}else{
+			return (pseudo+" n'est pas referent sur le theme "+this.getLiblle());
+		}
 	}
 	
 }

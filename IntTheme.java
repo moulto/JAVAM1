@@ -41,4 +41,12 @@ public interface IntTheme extends Remote{
 	 * @return Meilleur referent sur le theme
 	 */
 	public String getMeilleurReferent() throws RemoteException;
+	
+	/**
+	 * Supprime un referent sur un theme
+	 * @param pseudo Nom du referent a supprimer
+	 * @return Resultat de la suppression
+	 * @throws RemoteException
+	 */
+	public String suppReferent(String pseudo) throws RemoteException;
 }
