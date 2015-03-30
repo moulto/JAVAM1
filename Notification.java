@@ -1,8 +1,8 @@
-/* Permet de manipuler es notifications pour les utilisateurs */
+/* Permet de manipuler les notifications pour les utilisateurs */
 public class Notification {
 	
 	/**
-	 * Utilisateur à l'origine de la notification
+	 * Utilisateur a l'origine de la notification
 	 */
 	private String utilisateurEmetteur;
 	
@@ -12,21 +12,21 @@ public class Notification {
 	private String utilisateurCible;
 	
 	/**
-	 * Competence concernée en cas de demande de référent et vide pour les votes
+	 * Competence concernee en cas de demande de referent et vide pour les votes
 	 */
 	private String competenceConcernee;
 	
 	/**
-	 * Permet de savoir si il s'agit d'une demande  référent, d'une réponse, d'un vote, d'une victoire ou d'une défaite 
+	 * Permet de savoir si il s'agit d'une demande  referent, d'une reponse, d'un vote, d'une victoire ou d'une defaite 
 	 */
 	private String type; /* Demande / Reponse / vote */
 	
 	/**
 	 * Constructeur de la classe notification
-	 * @param utilisateurEmetteur Utilisateur à l'origine de la notification
+	 * @param utilisateurEmetteur Utilisateur a l'origine de la notification
 	 * @param utilisateurCible Utilisateur qui va recevoir la notification
-	 * @param competenceConcernee Competence concernée en cas de demande de référent et vide pour les votes
-	 * @param type Permet de savoir si il s'agit d'une demande  référent, d'une réponse, d'un vote, d'une victoire ou d'une défaite 
+	 * @param competenceConcernee Competence concernee en cas de demande de referent et vide pour les votes
+	 * @param type Permet de savoir si il s'agit d'une demande  referent, d'une reponse, d'un vote, d'une victoire ou d'une defaite 
 	 */
 	public Notification(String utilisateurEmetteur, String utilisateurCible, String competenceConcernee, String type){
 		this.utilisateurCible = utilisateurCible;
@@ -62,7 +62,7 @@ public class Notification {
 
 
 	/**
-	 * Accesseur sur la compétence
+	 * Accesseur sur la competence
 	 * @return the competenceConcernee
 	 */
 	public String getCompetenceConcernee() {

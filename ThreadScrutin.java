@@ -4,11 +4,11 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 
-/* Thread qui permet de gérer la durée d'un scrutin */
+/* Thread qui permet de gerer la duree d'un scrutin */
 public class ThreadScrutin implements Runnable{
 
 	/**
-	 * Durée du scrutin
+	 * Duree du scrutin
 	 */
 	private int time; 
 	
@@ -19,7 +19,7 @@ public class ThreadScrutin implements Runnable{
 	
 	/**
 	 * Constructeur du thread
-	 * @param time Durée du scrutin
+	 * @param time Duree du scrutin
 	 * @param pseudo Identifian du scrutin
 	 */
 	public ThreadScrutin(int time,String pseudo)
@@ -36,7 +36,7 @@ public class ThreadScrutin implements Runnable{
 	{
 
 			try {
-				/* On met l thread en attente de la durée du scrtin */
+				/* On met l thread en attente de la duree du scrtin */
 				Thread.sleep(this.time); 
 				try{
 					LocateRegistry.createRegistry(1099);

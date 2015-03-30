@@ -27,19 +27,19 @@ public class Client extends UnicastRemoteObject implements IntClient{
 	public static void main(String args[]) throws RemoteException, MalformedURLException, InterruptedException
 	{
 		
-		Scanner sc = new Scanner(System.in); /* Scanner pour les saisie utilisateurs */
+		Scanner sc = new Scanner(System.in); /* Scanner pour les saisies utilisateurs */
  		boolean profilCree = false; /* Booleen pour savoir si le profil de l'utilisateur est bien cree */
 		boolean isModerateur = false; /* Booleen pour savoir si l'utilisateur est moderateur */
 		Client cl = new Client(); /* Objet utilisateur */
 		
-		/* On demande le pseudo de l'utilisateur pour créer son profil */
+		/* On demande le pseudo de l'utilisateur pour creer son profil */
 		System.out.println("Bienvenue dans l'application de recommandation");
 		System.out.println("Veuillez taper votre pseudo ");	
 		String pseudo = sc.nextLine();
 		
 		
 		
-		/* On récupère le Regustry */
+		/* On recupere le Regustry */
 		try{
 			LocateRegistry.createRegistry(1099);
 		}
@@ -47,21 +47,21 @@ public class Client extends UnicastRemoteObject implements IntClient{
 			LocateRegistry.getRegistry(1099);
 		}
 		
-		/* On enregisre le client au catalogue à partir de son pseudo */
+		/* On enregisre le client au catalogue a partir de son pseudo */
 		Naming.rebind(pseudo, cl);
 		
 		/* Menu Pinicpal */
 		try {
 			Integer choix;
 			do{
-				/* On récupère les objets distribués dont on a besoin dans le clien */
+				/* On recupere les objets distribues dont on a besoin dans le client */
 				IntServeur serveur = (IntServeur) Naming.lookup("//localhost/serveur");
 				IntGestionnaireCompetence gestionnaireComp = (IntGestionnaireCompetence) Naming.lookup("//localhost/gestionnaireComp");
 				IntServeurNotification serveurNotification = (IntServeurNotification) Naming.lookup("//localhost/notification");
 				IntTheme ServeurTheme = null;
 				String url = "";
 				
-				/* On vérifie si le profil de l'utilisateur a bie ete cree */
+				/* On verifie si le profil de l'utilisateur a bien ete cree */
 				if(profilCree == false){
 					/* on cree le profil */
 					if(serveur.creerProfil(pseudo).equals("")){
@@ -74,11 +74,11 @@ public class Client extends UnicastRemoteObject implements IntClient{
 					isModerateur = profil.isModerateur();
 				}
 				
-				/* On récupère le nombre de notifications de l'utilisateur */
+				/* On recupere le nombre de notifications de l'utilisateur */
 				int nbnotifs = serveurNotification.getNombreNotification(pseudo);
 				
 				
-				System.out.println("\nVous etes bien connectes sur le serveur");
+				System.out.println("\nVous etes bien connecte sur le serveur");
 				System.out.println("Tapez le numero de l'action a realiser");
 				System.out.println("1  - Devenir referent");
 				System.out.println("2  - Recommander un etudiant");
@@ -98,7 +98,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 				choix = sc.nextInt();
 				switch (choix)
 				{
-				case 1 : /* Menu pour se proposer comme référent sur un theme */
+				case 1 : /* Menu pour se proposer comme referent sur un theme */
 					
 					System.out.println("Veuillez taper le theme sur lequel vous souhaitez etre referent");
 					/* On vide avant de lire une autre chaine */
@@ -127,7 +127,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 						}
 					}
 					break;
-				case 2 : /* Menu pour recommander un étudiant comme référent sur un thème */
+				case 2 : /* Menu pour recommander un etudiant comme referent sur un theme */
 					System.out.println("Veuillez taper le theme sur lequel vous souhaitez recommander un etudiant");
 					/* On vide avant de lire une autre chaine */
 					sc.nextLine();
@@ -146,7 +146,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 						System.out.println("Impossible de recommander un etudiant : le theme n'existe pas");
 					}
 					break;
-				case 3 : /* Menu pour supprimer une recommandation sur un étudiant */
+				case 3 : /* Menu pour supprimer une recommandation sur un etudiant */
 					System.out.println("Veuillez taper le theme sur lequel vous enlever la recommandation");
 					/* On vide avant de lire une autre chaine */
 					sc.nextLine();
@@ -166,7 +166,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 					}
 	
 					break;
-				case 4 : /* Menu pour afficher la liste des référents d'un thème */
+				case 4 : /* Menu pour afficher la liste des referents d'un theme */
 					System.out.println("Veuillez taper le theme pour afficher la liste des referents");
 					/* On vide avant de lire une autre chaine */
 					sc.nextLine();
@@ -195,7 +195,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 						
 					}
 					break;
-				case 5 : /* Menu pour afficher le pseudo du meilleur référent sur un thème */
+				case 5 : /* Menu pour afficher le pseudo du meilleur referent sur un theme */
 					System.out.println("Veuillez taper le theme pour afficher le meilleur referent ");
 					/* On vide avant de lire une autre chaine */
 					sc.nextLine();
@@ -211,10 +211,10 @@ public class Client extends UnicastRemoteObject implements IntClient{
 						System.out.println("Impossible de renvoyer le meilleur referent : le theme n'existe pas");
 					}
 					break;
-				case 6: /* Menu pour afficher la liste ds thèmes */
+				case 6: /* Menu pour afficher la liste ds themes */
 					System.out.println("Liste des themes en base : "+serveur.getListeThemes());
 					break;
-				case 7: /* Menu pour renseigner ses compétences */
+				case 7: /* Menu pour renseigner ses competences */
 					ArrayList<String> listeCompetences = new ArrayList<String>();
 					System.out.println("Veuillez entrer vos competences (Taper 0 pour sortir)");
 					String competence = null;
@@ -333,20 +333,20 @@ public class Client extends UnicastRemoteObject implements IntClient{
 					}else{
 						int choixModerateur = 0;
 						do{
-							/* On affiche le menu du modérateur */
+							/* On affiche le menu du moderateur */
 							System.out.println("Menu du moderateur");
-							System.out.println("1 : Supprimer un thème");
-							System.out.println("2 : Supprimer un référent sur un thème");
+							System.out.println("1 : Supprimer un theme");
+							System.out.println("2 : Supprimer un referent sur un theme");
 							System.out.println("0 : Quitter le menu moderateur");
 							System.out.println("Votre choix : ");
 							choixModerateur = sc.nextInt();
 							/* on vide le scanner */
 							sc.nextLine();
 							
-							/* on recupère le choix et on fait la'action associee */
+							/* on recupere le choix et on fait l'action associee */
 							switch (choixModerateur){
 							case 1:
-								/* Supression d'un thème */
+								/* Suppression d'un theme */
 								System.out.println("Liste des themes en base : "+serveur.getListeThemes());
 								System.out.println("Saisir le nom du theme que vous voulez supprimer");
 								String libelleTheme = "";
@@ -354,8 +354,8 @@ public class Client extends UnicastRemoteObject implements IntClient{
 								System.out.println(serveur.delTheme(libelleTheme));
 								break;
 							case 2:
-								/* Supression d'un référent sur un thème */
-								System.out.println("Veuillez taper le theme sur lequel vous souhaitez supprimer referent");
+								/* Suppression d'un referent sur un theme */
+								System.out.println("Veuillez taper le theme sur lequel vous souhaitez supprimer un referent");
 								/* On vide avant de lire une autre chaine */
 								String libTheme = sc.nextLine();
 								url = serveur.getTheme(libTheme);
@@ -409,7 +409,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 
 	@Override
 	/**
-	 * Affiche une popup qui informe de la présence d'une nouvelle notification
+	 * Affiche une popup qui informe de la presence d'une nouvelle notification
 	 * @throws RemoteException
 	 */
 	public void afficherNotif() throws RemoteException {

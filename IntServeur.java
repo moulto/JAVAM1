@@ -37,9 +37,9 @@ public interface IntServeur extends Remote{
 	public String getListeThemes() throws RemoteException;
 	
 	/**
-	 * Supprime un thème
-	 * @param libelle Libelle du thème que l'on veut supprimer
-	 * @return Résultat de la suppression du thème
+	 * Supprime un theme
+	 * @param libelle Libelle du theme que l'on veut supprimer
+	 * @return Resultat de la suppression du theme
 	 * @throws RemoteException
 	 * @throws NotBoundException 
 	 * @throws MalformedURLException 
@@ -61,18 +61,18 @@ public interface IntServeur extends Remote{
 	public String creerProfil(String pseudo) throws RemoteException, MalformedURLException, NotBoundException;
 	
 	/**
-	 * Retourne l'url de l'objet remote profil associé au pseudo utilisateur en paramètre
-	 * @param pseudo Pseudo de l'utilisateur duquel on veut accèder au profil
+	 * Retourne l'url de l'objet remote profil associe au pseudo utilisateur en parametre
+	 * @param pseudo Pseudo de l'utilisateur duquel on veut acceder au profil
 	 * @return
 	 * @throws RemoteException
 	 */
 	public String getProfil(String pseudo) throws RemoteException;
 	
 	/**
-	 * Permet de faire une demande de création d'un scrutin au gestionnaire de scrutin
+	 * Permet de faire une demande de creation d'un scrutin au gestionnaire de scrutin
 	 * @param pseudo Pseudo du candidat
-	 * @param time Durée du scrutin
-	 * @return Résultat de la création du scrutin
+	 * @param time Duree du scrutin
+	 * @return Resultat de la creation du scrutin
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 * @throws NotBoundException
@@ -80,11 +80,11 @@ public interface IntServeur extends Remote{
 	public String creerScrutin(String pseudo,int time) throws RemoteException, MalformedURLException, NotBoundException;
 	
 	/**
-	 * Permet à un utilisateur d'enregistrer un vote à un scrutin
+	 * Permet a un utilisateur d'enregistrer un vote a un scrutin
 	 * @param pseudoCandidat Nom du candidat => identifiant pour le scrutin
 	 * @param pseudoVotant Nom de l'utilisateur qui vote
 	 * @param voix Vote de l'utiliateur
-	 * @return Résultat de la demande d'enregistrement vote
+	 * @return Resultat de la demande d'enregistrement vote
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 * @throws NotBoundException
@@ -93,7 +93,7 @@ public interface IntServeur extends Remote{
 	public String voter(String pseudoCandidat,String pseudoVotant,int voix) throws RemoteException, MalformedURLException, NotBoundException, InterruptedException;
 	
 	/**
-	 * Permet de fermer un scrutin et de notifier les utilisateur du résultat
+	 * Permet de fermer un scrutin et de notifier les utilisateur du resultat
 	 * @param pseudoCandidat Identifiant du scrutin
 	 * @throws RemoteException
 	 * @throws MalformedURLException
@@ -102,8 +102,8 @@ public interface IntServeur extends Remote{
 	public void terminerScrutin(String pseudoCandidat) throws RemoteException, MalformedURLException, NotBoundException;
 	
 	/**
-	 * Retourne le nombre d'utilisateurs dans le système
-	 * @return Nombre d'utilsateur connus dans le système
+	 * Retourne le nombre d'utilisateurs dans le systeme
+	 * @return Nombre d'utilisateur connus dans le systeme
 	 * @throws RemoteException
 	 */
 	public int getNbUtilisateurs() throws RemoteException;

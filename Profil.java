@@ -3,7 +3,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-/* La classe profil contient toutes les informations propres à un utilisateur */
+/* La classe profil contient toutes les informations propres a un utilisateur */
 public class Profil extends UnicastRemoteObject implements IntProfil {
 
 	/**
@@ -40,7 +40,7 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 
 
 	/**
-	 * Accesseur sur le pseudo, c'est à dire l'identifiant du profil
+	 * Accesseur sur le pseudo, c'est a dire l'identifiant du profil
 	 * @return Pseudo de l'utilisateur
 	 * @throws RemoteException
 	 * @throws MalformedURLException
@@ -51,7 +51,7 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 	}
 
 	/**
-	 * Permet de donner le role modérateur à un utilisateur
+	 * Permet de donner le role moderateur a un utilisateur
 	 */
 	public void setModerateur() throws RemoteException{
 		this.moderateur=true;
@@ -59,8 +59,8 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 	
 
 	/**
-	 * Retoure la lite des compétences d'un utilisateur
-	 * @return ArrayList qui contient les compétences d'un utilisateur
+	 * Retoure la lite des competences d'un utilisateur
+	 * @return ArrayList qui contient les competences d'un utilisateur
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 */
@@ -71,8 +71,8 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 
 
 	/**
-	 * Permet de savoir si un utilisateur possède le role de modérateur
-	 * @return Ture si l'utilisateur est modérateur et false sinon
+	 * Permet de savoir si un utilisateur possede le role de moderateur
+	 * @return True si l'utilisateur est moderateur et false sinon
 	 * @throws RemoteException
 	 */
 	public boolean isModerateur() throws RemoteException {
@@ -81,9 +81,9 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 	}
 	
 	/**
-	 * Permet à un utilisateur de renseigner ses compétences
-	 * @param competence Compétence dans lequel l'utilisateur prétend être compétent
-	 * @return Résultat de l'ajout de la nouvelle compétence
+	 * Permet a un utilisateur de renseigner ses competences
+	 * @param competence Competence dans lequel l'utilisateur pretend etre competent
+	 * @return Resultat de l'ajout de la nouvelle competence
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 */
@@ -92,7 +92,7 @@ public class Profil extends UnicastRemoteObject implements IntProfil {
 			return "Vous avez deja renseigne cette competence";
 		}else{
 			this.competences.add(competence);
-			return "La competence  a bien ete ajoutee";
+			return "La competence a bien ete ajoutee";
 		}
 	}
 	

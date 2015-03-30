@@ -5,7 +5,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
- * Gestionnaire de profil qui permet de créer des objets remote Profils
+ * Gestionnaire de profil qui permet de creer des objets remote Profils
  *
  */
 public class GestionnaireProfil extends UnicastRemoteObject implements IntGestionnaireProfil {
@@ -23,9 +23,9 @@ public class GestionnaireProfil extends UnicastRemoteObject implements IntGestio
 	@Override
 	/**
 	 * Creer un profil remote
-	 * @param pseudo Identifiant de l'étudiant
+	 * @param pseudo Identifiant de l'etudiant
 	 * @param competences Liste des competences
-	 * @return Résultat de la création
+	 * @return Resultat de la creation
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 */

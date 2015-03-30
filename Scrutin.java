@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-/* Classe qui représente un scrutin */
+/* Classe qui represente un scrutin */
 public class Scrutin{
 
 	// Etat du scrutin, 1 ouvert, 0 fermé
@@ -32,7 +32,7 @@ public class Scrutin{
 	private int nbBlanc;
 	
 	/**
-	 * Liste des utilisateurs ayant déjà votés
+	 * Liste des utilisateurs ayant deja votes
 	 */
 	private ArrayList<String> listeDejaVote;
 
@@ -57,7 +57,7 @@ public class Scrutin{
 	 * @param voix Choix de l'utilisateur sur le vote (0 = contre / 1 = blanc / 2 = pour)
 	 */
 	public String voter(String votant, Integer voix){
-		/* On regarde si l'utilsateur n'a pas déjà voté pour ce scrutin */
+		/* On regarde si l'utilisateur n'a pas deja vote pour ce scrutin */
 		if(this.listeDejaVote.contains(votant)){
 			return "Vous avez deja vote pour ce scrutin";
 		}else{
@@ -73,7 +73,7 @@ public class Scrutin{
 				this.nbPour++;
 				break;
 			}
-			/* On regarde si la majorité des participants se sont exprimés */
+			/* On regarde si la majorite des participants se sont exprimes */
 			int sommeVotes = nbContre + nbPour + nbBlanc;
 			if(sommeVotes > (nbParticipants/2)){
 				/* La majorite des participants se sont exprimes, le vote est maintenant termine */
@@ -85,12 +85,12 @@ public class Scrutin{
 	}
 	
 	/**
-	 * Termine le scrutin et retourne le résultat
-	 * @return True si le candidat est élu et false sinon
+	 * Termine le scrutin et retourne le resultat
+	 * @return True si le candidat est elu et false sinon
 	 */
 	public boolean terminerScrutin(){
 		/* On va maintenant comparer les votes */
-		/* On regarde si les vote POUR sont supérieurs aux autres */
+		/* On regarde si les votes POUR sont superieurs aux autres */
 		if(nbPour > nbBlanc && nbPour > nbContre){
 			return true;
 		}else{
@@ -101,7 +101,7 @@ public class Scrutin{
 	
 	/**
 	 * Donne l'etat d'un scrutin
-	 * @return True si le scrutin est termine et false sinon
+	 * @return True si le scrutin est termine et False sinon
 	 */
 	public boolean isTermine(){
 		return this.termine;

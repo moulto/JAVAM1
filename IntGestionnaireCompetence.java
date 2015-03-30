@@ -3,22 +3,22 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-/* Serveur qui gère toute  la parte comptences des utilisateurs */
+/* Serveur qui gere toute la partie competences des utilisateurs */
 public interface IntGestionnaireCompetence extends Remote {
 
 	/**
-	 * Donne la liste de tous les utilisateurs qui sont identifiés comme référents potentiels sur un thème
-	 * @param Competence Thème/ompétence sur lequel l'utilisateur pourrait être référent
-	 * @return Liste des utilisateurs sucepibles d'être réfrent sur le thème donné
+	 * Donne la liste de tous les utilisateurs qui sont identifies comme referents potentiels sur un theme
+	 * @param Competence Theme/competence sur lequel l'utilisateur pourrait etre referent
+	 * @return Liste des utilisateurs susceptibles d'etre referent sur le theme donne
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 */
 	public String ListeRefPotentiel(String Competence) throws RemoteException, MalformedURLException;
 	
 	/**
-	 * Ajoute un référent potentiel à la liste
-	 * @param pseudo Pseudo de l'utilisateur suceptible d'être référent
-	 * @param competences Liste des compétences sur lesquelles l'utilisateur dit être compétent
+	 * Ajoute un referent potentiel a la liste
+	 * @param pseudo Pseudo de l'utilisateur susceptible d'etre referent
+	 * @param competences Liste des competences sur lesquelles l'utilisateur dit etre competent
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 */

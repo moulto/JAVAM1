@@ -95,7 +95,7 @@ public class Theme extends UnicastRemoteObject implements IntTheme
 
 	@Override
 	/**
-	 * Retire le vote d'un etudiant pour l'un de ses camarade sur le theme
+	 * Retire le vote d'un etudiant pour l'un de ses camarades sur le theme
 	 * @param recommandant Etudiant qui desire retirer son vote
 	 * @param recommande Etudiant concerne par la demande de retrait du vote
 	 * @return Resultat de la demande de retrait
@@ -119,7 +119,7 @@ public class Theme extends UnicastRemoteObject implements IntTheme
 
 	@Override
 	/**
-	 * Donne pour le theme le meileur referent, c'est a dire celui qui a reçu le plus de vote
+	 * Donne pour le theme le meilleur referent, c'est a dire celui qui a reçu le plus de vote
 	 * @return Meilleur referent sur le theme
 	 */
 	public String getMeilleurReferent() {

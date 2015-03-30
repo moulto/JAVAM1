@@ -40,7 +40,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	/**
 	 * Permet de creer un theme
 	 * @param libelle Nom du theme que l'on veut creer
-	 * @return Si le theme est creer on retourne sa reference sinon on retourne rien ""
+	 * @return Si le theme est cree on retourne sa reference sinon on retourne rien ""
 	 * 
 	 */
 	public String creerTheme(String libelle) throws MalformedURLException, RemoteException, NotBoundException{
@@ -85,19 +85,19 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	}
 	
 	/**
-	 * Supprime un thème
-	 * @param libelle Libelle du thème que l'on veut supprimer
-	 * @return Résultat de la suppression du thème
+	 * Supprime un theme
+	 * @param libelle Libelle du theme que l'on veut supprimer
+	 * @return Resultat de la suppression du theme
 	 * @throws RemoteException
 	 * @throws NotBoundException 
 	 * @throws MalformedURLException 
 	 */
 	public String delTheme(String libelle)throws RemoteException, MalformedURLException, NotBoundException{
-		/* On recupère l'objet */
+		/* On recupere l'objet */
 		if(this.listeThemes.containsKey(libelle)){
 			/* On supprime l'objet du catalogue des objets remote */
 			Naming.unbind(this.listeThemes.get(libelle));
-			/* On supprime également le thème de la liste des thèmes */
+			/* On supprime egalement le theme de la liste des themes */
 			this.listeThemes.remove(libelle);
 			return "Le theme a bien ete supprime";
 		}else{
@@ -137,8 +137,8 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	}
 	
 	/**
-	 * Retourne l'url de l'objet remote profil associé au pseudo utilisateur en paramètre
-	 * @param pseudo Pseudo de l'utilisateur duquel on veut accèder au profil
+	 * Retourne l'url de l'objet remote profil associe au pseudo utilisateur en parametre
+	 * @param pseudo Pseudo de l'utilisateur duquel on veut acceder au profil
 	 * @return
 	 * @throws RemoteException
 	 */
@@ -151,10 +151,10 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	}
 	
 	/**
-	 * Permet de faire une demande de création d'un scrutin au gestionnaire de scrutin
+	 * Permet de faire une demande de creation d'un scrutin au gestionnaire de scrutin
 	 * @param pseudo Pseudo du candidat
-	 * @param time Durée du scrutin
-	 * @return Résultat de la création du scrutin
+	 * @param time Duree du scrutin
+	 * @return Resultat de la creation du scrutin
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 * @throws NotBoundException
@@ -166,7 +166,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		if(resultat.equals("ok")){
 			Object tab[] =  this.listeProfils.keySet().toArray();
 			int i;
-			/* On notifie les utilisateurs du début du scrutin */
+			/* On notifie les utilisateurs du debut du scrutin */
 			for(i=0;i<tab.length;i++){
 				serveurNotif.creerNotification(pseudo, (String) tab[i], "", "vote");
 				serveurNotif.notifier((String) tab[i]);
@@ -178,11 +178,11 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	}
 	
 	/**
-	 * Permet à un utilisateur d'enregistrer un vote à un scrutin
+	 * Permet a un utilisateur d'enregistrer un vote a un scrutin
 	 * @param pseudoCandidat Nom du candidat => identifiant pour le scrutin
 	 * @param pseudoVotant Nom de l'utilisateur qui vote
 	 * @param voix Vote de l'utiliateur
-	 * @return Résultat de la demande d'enregistrement vote
+	 * @return Resultat de la demande d'enregistrement vote
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 * @throws NotBoundException
@@ -201,7 +201,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	}
 	
 	/**
-	 * Permet de fermer un scrutin et de notifier les utilisateur du résultat
+	 * Permet de fermer un scrutin et de notifier les utilisateur du resultat
 	 * @param pseudoCandidat Identifiant du scrutin
 	 * @throws RemoteException
 	 * @throws MalformedURLException
@@ -212,7 +212,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 		boolean resultat = gestionnaireScrutin.terminerScrutin(pseudoCandidat);
 		String type = null;
 		if(resultat){
-			/* candidat élu on notifie qu'il a gagné */
+			/* candidat elu on notifie qu'il a gagne */
 			type = "v";
 			IntProfil profilCandidat = (IntProfil) Naming.lookup("//localhost/"+pseudoCandidat+"-profil");
 			profilCandidat.setModerateur();
@@ -220,7 +220,7 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 			/* on notifie qu'il a perdu */
 			type = "d";
 		}
-		/* On notifie les utilisateurs du résultat */
+		/* On notifie les utilisateurs du resultat */
 		IntServeurNotification serveurNotif = (IntServeurNotification) Naming.lookup("//localhost/notification");
 		Object tab[] =  this.listeProfils.keySet().toArray();
 		int i;
@@ -231,8 +231,8 @@ public class Serveur extends UnicastRemoteObject implements IntServeur{
 	}
 	
 	/**
-	 * Retourne le nombre d'utilisateurs dans le système
-	 * @return Nombre d'utilsateur connus dans le système
+	 * Retourne le nombre d'utilisateurs dans le systeme
+	 * @return Nombre d'utilisateurs connus dans le systeme
 	 * @throws RemoteException
 	 */
 	public int getNbUtilisateurs() throws RemoteException {

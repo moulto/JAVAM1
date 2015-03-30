@@ -29,7 +29,7 @@ public interface IntTheme extends Remote{
 	public String addReferent(String recommandant, String recommande) throws RemoteException;
 	
 	/**
-	 * Retire le vote d'un etudiant pour l'un de ses camarade sur le theme
+	 * Retire le vote d'un etudiant pour l'un de ses camarades sur le theme
 	 * @param recommandant Etudiant qui desire retirer son vote
 	 * @param recommande Etudiant concerne par la demande de retrait du vote
 	 * @return Resultat de la demande de retrait
@@ -37,7 +37,7 @@ public interface IntTheme extends Remote{
 	public String delReferent(String recommandant, String recommande) throws RemoteException;
 	
 	/**
-	 * Donne pour le theme le meileur referent, c'est a dire celui qui a reçu le plus de vote
+	 * Donne pour le theme le meilleur referent, c'est a dire celui qui a reçu le plus de vote
 	 * @return Meilleur referent sur le theme
 	 */
 	public String getMeilleurReferent() throws RemoteException;

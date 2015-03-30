@@ -3,16 +3,16 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- * Interface du gestionnaire de profil qui permet de créer des profils
+ * Interface du gestionnaire de profil qui permet de creer des profils
  *
  */
 public interface IntGestionnaireProfil extends Remote {
 	
 	/**
 	 * Creer un profil remote
-	 * @param pseudo Identifiant de l'étudiant
+	 * @param pseudo Identifiant de l'etudiant
 	 * @param competences Liste des competences
-	 * @return Résultat de la création
+	 * @return Resultat de la creation
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 */

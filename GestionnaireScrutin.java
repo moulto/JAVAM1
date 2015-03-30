@@ -5,7 +5,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.HashMap;
 
-/* Serveur qui assure la gestion des scrutins pour le poste de modérateur */
+/* Serveur qui assure la gestion des scrutins pour le poste de moderateur */
 public class GestionnaireScrutin extends UnicastRemoteObject implements IntGestionnaireScrutin {
 
 	/**
@@ -14,12 +14,12 @@ public class GestionnaireScrutin extends UnicastRemoteObject implements IntGesti
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * HashMap qui associe à chaques utilisateur son scrutin
+	 * HashMap qui associe a chaque utilisateur son scrutin
 	 */
 	private HashMap<String,Scrutin> listeScrutins;
 	
 	/**
-	 * Liste des thread de scrutin
+	 * Liste des threads de scrutin
 	 */
 	private HashMap<String,Thread> listeThreads;
 	
@@ -34,9 +34,9 @@ public class GestionnaireScrutin extends UnicastRemoteObject implements IntGesti
 	}
 	
 	/**
-	 * Créer le thread de durée pour un scrutin
-	 * @param pseudoCandidat Nom du candidat au poste de modérateur
-	 * @param time Durée du scrutin en secondes
+	 * Creer le thread de duree pour un scrutin
+	 * @param pseudoCandidat Nom du candidat au poste de moderateur
+	 * @param time Duree du scrutin en secondes
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 */
@@ -48,8 +48,8 @@ public class GestionnaireScrutin extends UnicastRemoteObject implements IntGesti
 	}
 	
 	/**
-	 * Arrête un thread de durée car le scrutin est terminé
-	 * @param pseudoCandidat Nom du candidat au poste de modérateur
+	 * Arrete un thread de duree car le scrutin est termine
+	 * @param pseudoCandidat Nom du candidat au poste de moderateur
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 * @throws InterruptedException
@@ -60,10 +60,10 @@ public class GestionnaireScrutin extends UnicastRemoteObject implements IntGesti
 	}
 	
 	/**
-	 * Permet de créer un scrutin
+	 * Permet de creer un scrutin
 	 * @param pseudo Nom du candidat
-	 * @param time Durée du scrutin en secondes
-	 * @param nbParticipants Nombre total d'utilisateur et donc de participants à ce scrutin
+	 * @param time Duree du scrutin en secondes
+	 * @param nbParticipants Nombre total d'utilisateur et donc de participants a ce scrutin
 	 * @return
 	 * @throws RemoteException
 	 * @throws MalformedURLException
@@ -72,7 +72,7 @@ public class GestionnaireScrutin extends UnicastRemoteObject implements IntGesti
 		Scrutin scrutin = new Scrutin(pseudo,nbParticipants);
 		/* On check si un scrutin pour cet utilisateur n'existe pas deja */
 		if(this.listeScrutins.containsKey(pseudo)){
-			return "Vous avez deja un scrutin en cuours";
+			return "Vous avez deja un scrutin en cours";
 		}else{
 			this.listeScrutins.put(pseudo, scrutin);
 			this.creerThreadScrutin(pseudo, time);
@@ -85,8 +85,8 @@ public class GestionnaireScrutin extends UnicastRemoteObject implements IntGesti
 	 * Permet d'enregistrer le vote d'un utilisateur sur un scrutin
 	 * @param pseudoCandidat Nom du candidat => permet l'identification du scrutin
 	 * @param pseudoVotant Nom de l'utilisateur qui vote
-	 * @param voix Vote de l'utilisateur (pour,contre ou blanc)
-	 * @return Résultat de l'enregistrement du vote
+	 * @param voix Vote de l'utilisateur (pour, contre ou blanc)
+	 * @return Resultat de l'enregistrement du vote
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 * @throws InterruptedException
@@ -108,9 +108,9 @@ public class GestionnaireScrutin extends UnicastRemoteObject implements IntGesti
 	}
 	
 	/**
-	 * Permet de cloturer un scrutin et de calculer le résultat
+	 * Permet de cloturer un scrutin et de calculer le resultat
 	 * @param pseudoCandidat Nom du candidat au poste de moderateur
-	 * @return True si le candidat est élu et False sinon
+	 * @return True si le candidat est elu et False sinon
 	 * @throws RemoteException
 	 * @throws MalformedURLException
 	 */

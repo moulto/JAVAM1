@@ -35,7 +35,7 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 
 	/**
 	 * Creer une notification et l'ajoute a la liste
-	 * @param utilSource Utilisateur emtteur
+	 * @param utilSource Utilisateur emetteur
 	 * @param utilCibe Utilisateur destinataire
 	 * @param competence Objet de la notification
 	 * @return Resultat
@@ -128,7 +128,7 @@ public class serveurNotification extends UnicastRemoteObject implements IntServe
 
 	
 	/**
-	 * Affiche une popup sur l'écran de l'utilisateur pour l'informer d'une nouvelle notification
+	 * Affiche une popup sur l'ecran de l'utilisateur pour l'informer d'une nouvelle notification
 	 * @param utilisateur Utilisateur que l'on doit notifier
 	 * @throws RemoteException
 	 * @throws MalformedURLException
