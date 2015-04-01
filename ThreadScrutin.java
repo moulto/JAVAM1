@@ -36,7 +36,7 @@ public class ThreadScrutin implements Runnable{
 	{
 
 			try {
-				/* On met l thread en attente de la duree du scrtin */
+				/* On met l thread en attente de la duree du scrutin */
 				Thread.sleep(this.time); 
 				try{
 					LocateRegistry.createRegistry(1099);

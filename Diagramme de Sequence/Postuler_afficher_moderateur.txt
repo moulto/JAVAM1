@@ -1,0 +1,50 @@
+title Postuler/afficher_moderateur Sequence
+
+Client-->Serveur : Postule moderateur
+
+alt utilisateur is moderateur
+note left of Serveur : Se proposer moderateur
+Serveur->+Client : ""Combien de secondes voulez vous que le vote dure ? (0 pour quitter)""
+Client-->-Serveur : Rentre le choix
+alt time != 0
+Client->GestionnaireScrutin : creerScrutin(pseudo, time) : String
+GestionnaireScrutin : ""Votre demande a bien ete prise en compte, vous serez informe du resultat a la fin du vote""
+end
+
+else utilisateur is not moderateur
+loop choixModerateur != 0
+Serveur->+Client : ""Menu du moderateur""
+Serveur->Client : ""1 : Supprimer un theme""
+Serveur->Client : "2 : Supprimer un referent sur un theme"
+Serveur->Client : ""0 : Quitter le menu moderateur""
+Serveur->Client : ""Votre choix : ""
+Client-->Serveur : Rentre le choix
+
+alt choix = 1
+Note left of Serveur : Supprimer theme
+Client->+Serveur : getListeThemes() : String
+Serveur->-Client : ""Liste des themes en base : <listeThemes>""
+Serveur->-Client : ""Saisir le nom du theme que vous voulez supprimer""
+Client-->Serveur : Rentre le nom
+Client->Serveur : delTheme(libelleTheme) : String
+
+
+else choix = 2
+Note left of Serveur : Supprimer referent
+Serveur->-Client : ""Veuillez taper le theme sur lequel vous souhaitez supprimer un referent""
+Client->Serveur : getTheme() : String
+alt !url isEmpty
+Client->ServeurTheme : getListeReferents() : String
+ServeurTheme->Client : <listeReferents>
+ServeurTheme->+Client : ""Saisir le pseudo du referent a supprimer : ""
+Client-->-ServeurTheme : Rentre le pseudo
+Client->ServeurTheme : suppReferent(referent) : String
+else url isEmpty
+ServeurTheme->Client : ""Le theme que vous avez saisi n'existe pas""
+end
+
+else choix = 0
+Note left of Serveur : Quitter menu
+end
+
+end

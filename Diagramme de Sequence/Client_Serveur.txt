@@ -5,9 +5,19 @@ Serveur->+Client : ""Bienvenue dans l'application de recommandation""
 Serveur->Client : ""Veuillez taper votre pseudo ""
 Client-->-Serveur : Rentre le pseudo
 
+alt profilCree = false
+note left of Serveur : On verifie si le profil a bien ete cree
+alt profil vide
+Serveur-> Client : ""Erreur a la creation du profil""
+else !profil vide
+end
+else profilCree = true
+note left of Serveur : Le profil est moderateur
+end
+
 loop choix != 0
 Serveur->+Client : ""Vous etes bien connectes sur le serveur""
-Serveur->Client : ""Tapez le numero de l'action a réaliser""
+Serveur->Client : ""Tapez le numero de l'action a realiser""
 Serveur->Client : ""1 - Devenir referent""
 Serveur->Client : ""2 - Recommander un etudiant""
 Serveur->Client : ""3 - Supprimer une recommandation""
@@ -15,8 +25,15 @@ Serveur->Client : ""4 - Afficher la liste des referents""
 Serveur->Client : ""5 - Afficher le meilleur referent ""
 Serveur->Client : ""6 - Afficher la liste des themes""
 Serveur->Client : ""7 - Renseigner ses competences""
-Serveur->Client : ""8 - Afficher les notifications <nbnotif>""
+Serveur->Client : ""8 - Afficher les notifications <nbnotifs>""
 Serveur->Client : ""9 - Rafraichir la page""
+
+alt isModerateur
+Serveur->Client : ""10 - Menu moderateur""
+else !isModerateur
+Serveur->Client : ""10 - Postuler en tant que moderateur""
+end
+
 Serveur->Client : ""0 - Quitter""
 Client-->-Serveur : Rentre le choix
 
@@ -38,11 +55,17 @@ else choix = 8
 Note left of Serveur : Afficher les notifications
 else choix = 9
 Note left of Serveur : Rafraichir la page
+else choix = 10
+Note left of Serveur : Postuler comme referent
+note left of Serveur : ou
+note left of Serveur : Afficher menu moderateur si profil = moderateur
 else choix = 0
 Note left of Serveur : Quitter
 end
 
 end
 
-Serveur-->Client : Ferme l'application
+Client-->+Serveur : Affiche notification
+Serveur->-Client : ""Vous avez une nouvelle notification !""
+
 Client-->Serveur : Ferme l'application

@@ -1,4 +1,4 @@
-title Supprimer_recommmandation Sequence
+title Supprimer_recommandation Sequence
 
 Client-->Serveur : Supprime une recommandation
 Serveur->+Client : ""Veuillez taper le theme sur lequel vous enlever la recommandation""

@@ -1,0 +1,111 @@
+title Afficher_notifications Sequence
+
+Client-->Serveur : Affiche ses notifications
+
+Serveur->Client : ""Liste des notifications""
+Client->ServeurNotification : getNotificationsUtilisateur(String utilisateur):ArrayList<String>
+note left of ServeurNotification : voir getNotificationsUtilisateur
+
+alt listeNotifications!=null
+note left of ServeurNotification : recupere l'ensemble des notifications
+	loop EndOfList notification
+		alt notification = req
+note left of ServeurNOtification : Demande
+			Serveur->Client : ""<utilisateur> veut savoir si tu voudrais devenir referent sur le theme <theme>""
+			Serveur->+Client : ""Votre choix (oui / non) : ""
+			Client-->-Serveur : Rentre le choix
+			alt reponse == oui
+				Client->+Serveur: getTheme(String libelle): String
+				note right of Serveur : voir getTheme
+				Serveur-->-Client : Renvoi URL
+				alt !URL isEmpty
+					note left of Serveur : Le client devient referent
+					Client-> Theme : addReferent(String recommandant, String recommande): String
+					note right of Serveur : voir addReferent
+					alt recommande not exist 
+						Theme->Client : ""Votre recommandation a ete ajoutee""
+					else recommande exist
+						alt recommande is in the list
+							Theme->Client : ""Vous avez deja vote pour ce referent""
+						else recommande is not in the list
+							Theme->Client : ""Votre recommandation a ete ajoutee""
+					end
+					Client -> ServeurNotification : creerNotification(utilSource:String, utilCible:String, competence:String, type:String) : String
+					note left of ServeurNotification : voir creerNotification
+					alt !listeNotifications=null
+						note left of ServeurNotification : liste deja cree
+					else listeNotifications=null
+						note left of ServeurNotification : liste cree
+					end
+					ServeurNotification->Client: ""Votre notification a bien ete envoyee""
+				else URL isEmpty
+					Client->Serveur: creerTheme(String libelle): String
+					note right of Serveur : voir creerTheme
+					alt theme exist
+						GestionnaireTheme-->Serveur : return ""
+					else theme not exist
+						Serveur->GestionnaireTheme: creerTheme(String libelle):
+						GestionnaireTheme-->Serveur : return url
+					end
+					alt !URL empty
+						Client-> Theme : addReferent(String recommandant, String recommande): String
+						note right of Serveur : voir addReferent
+						alt recommande not exist 
+							Theme->Client : ""Votre recommandation a ete ajoutee""
+						else recommande exist
+							alt recommande is in the list
+								Theme->Client : ""Vous avez deja vote pour ce referent""
+							else recommande is not in the list
+								Theme->Client : ""Votre recommandation a ete ajoutee""
+							end
+						end
+					else URL empty
+						Serveur->Client : ""Impossible de devenir referent : erreur lors de la creation de theme""
+					end
+				end
+			end
+			Client->ServeurNotification :  delNotification(String utilisateurCible,String utilisateurSource, String competence):void
+			note left of ServeurNotification : Voir delNotification
+		else notification != req
+			Serveur->Client : ""<utilisateur> a accepte de devenir referent sur le theme <theme>""
+
+alt notification = req
+note left of ServeurNOtification : Reponse
+Serveur->Client : ""<utilisateur> a accepte de devenir referent sur le theme <theme>"
+Client->ServeurNotification :  delNotification(String utilisateurCible,String utilisateurSource, String competence):void
+else notification != req
+
+alt notification = vote
+loop vote != oui && vote !=non && vote != blanc
+Serveur->+Client : ""<utilisateur> souhaite devenir moderateur, merci de voter : (oui/non/blanc)""
+Client-->-Serveur : Rentre le choix
+end
+
+alt vote = oui
+note left of Serveur : voix = 2
+else alt vote = blanc
+note left of Serveur : voix = 1
+else
+note left of Serveur : voix = 0
+end
+
+else
+tab notification = v
+Serveur->Client : ""<utilisateur> a ete elu moderateur""
+else
+tab notification = d
+Serveur->Client : ""<utilisateur> n'a pas ete elu moderateur""
+end
+end
+
+end
+
+end
+
+
+
+			Client->ServeurNotification :  delNotification(String utilisateurCible,String utilisateurSource, String competence):void
+			note left of ServeurNotification : Voir delNotification
+		end
+	end
+end

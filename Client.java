@@ -47,10 +47,10 @@ public class Client extends UnicastRemoteObject implements IntClient{
 			LocateRegistry.getRegistry(1099);
 		}
 		
-		/* On enregisre le client au catalogue a partir de son pseudo */
+		/* On enregistre le client au catalogue a partir de son pseudo */
 		Naming.rebind(pseudo, cl);
 		
-		/* Menu Pinicpal */
+		/* Menu Principal */
 		try {
 			Integer choix;
 			do{
@@ -282,13 +282,13 @@ public class Client extends UnicastRemoteObject implements IntClient{
 									/* Demande d'election de moderateur */
 									if(tabNotifs[2].equals("vote")){
 										String vote = null;
-										/* On boucle tant que l'utilisateur ne saisie pas oui / non ou blanc */
+										/* On boucle tant que l'utilisateur ne saisit pas oui / non ou blanc */
 										do{
 											/* On affiche la demande */
 											System.out.println(tabNotifs[0]+" souhaite devenir moderateur, merci de voter : (oui/non/blanc)");
 											vote = sc.nextLine();
 										}while(!vote.equalsIgnoreCase("oui") && !vote.equalsIgnoreCase("non") && !vote.equalsIgnoreCase("blanc"));
-										 /* On enregistre le vote de l'utilisateur dans le scrutn */
+										 /* On enregistre le vote de l'utilisateur dans le scrutin */
 										/* On transforme le choix de l'utilisateur en voix (0,1 ou 2) */
 										int voix;
 										if(vote.equalsIgnoreCase("oui")){
@@ -318,7 +318,7 @@ public class Client extends UnicastRemoteObject implements IntClient{
 					}
 
 					break;
-				case 9: /* Raffraichit la page */
+				case 9: /* Rafraichit la page */
 					break;
 				case 10: /* Postuler en tant que moderateur ou afficher le menu moderateur si on est moderateur */
 					if(!isModerateur){
